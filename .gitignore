@@ -35,7 +35,3 @@ build
 node_modules
 
 ### Project Specific
-
-bower_components
-# asset/css/* ## commented out as FEW changes being made to css at this stage, and its useful to have for gh-pages
-## Yes I'm a bad person
