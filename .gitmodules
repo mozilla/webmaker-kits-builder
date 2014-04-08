@@ -1,0 +1,6 @@
+[submodule "makerstrap"]
+	path = asset/vendor/makerstrap
+	url = https://github.com/mozilla/makerstrap.git
+[submodule "asset/vendor/webmaker-kits"]
+	path = asset/vendor/webmaker-kits
+	url = https://github.com/mozilla/webmaker-kits.git

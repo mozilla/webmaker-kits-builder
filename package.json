@@ -1,0 +1,32 @@
+{
+  "name": "webmaker-kit-builder",
+  "version": "0.0.1",
+  "description": "Provides a content creation focused tool to produce kits for Mozilla Webmaker, and inject the resulting HTML/CSS into Thimble for final tweaks and publishing.",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fuzzyfox/kit-builder.git"
+  },
+  "keywords": [
+    "kit",
+    "webmaker",
+    "mozilla",
+    "tags",
+    "builder",
+    "generator"
+  ],
+  "author": "William Duyck <wduyck@mozillafoundation.org>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/fuzzyfox/kit-builder/issues"
+  },
+  "homepage": "https://github.com/fuzzyfox/kit-builder",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jshint": "~0.9.2",
+    "grunt-contrib-less": "~0.9.0",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
