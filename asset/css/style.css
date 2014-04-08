@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700);
 @import url(https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-@import url(/asset/vendor/makerstrap/makerstrap.complete.min.css);
+@import url(asset/vendor/makerstrap/makerstrap.complete.min.css);
 main {
   margin-right: auto;
   margin-left: auto;
