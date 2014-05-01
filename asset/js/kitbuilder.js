@@ -151,7 +151,7 @@
     $( '#kit-builder-form' ).submit( function( e ) {
       var kitHTML = '<!doctype html><html>' + frame.document.documentElement.innerHTML + '</html>';
       kitHTML = kitHTML.replace( '\n', '' );
-      window.open( 'data:text/html;' + ( window.btoa ? 'base64,' + btoa( kitHTML ) : kitHTML ) );
+      window.open( 'data:text/text;' + ( window.btoa ? 'base64,' + btoa( kitHTML ) : kitHTML ) );
       e.preventDefault();
       return false;
     });
