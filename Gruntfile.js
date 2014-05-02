@@ -13,7 +13,6 @@ module.exports = function( grunt ) {
         quotmark: 'single',
         camelcase: true,
         undef: true,
-        unused: true,
         eqeqeq: true,
         node: true,
         browser: true
