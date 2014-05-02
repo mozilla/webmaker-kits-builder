@@ -22,9 +22,18 @@ module.exports = function( grunt ) {
         'Gruntfile.js',
         'asset/js/**/*.js'
       ]
+    },
+    connect: {
+      server: {
+        options: {
+          port: 1111,
+          useAvailablePort: true
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-  grunt.registerTask( 'default', [ 'jshint' ] );
+  grunt.loadNpmTasks( 'grunt-contrib-connect' );
+  grunt.registerTask( 'default', [ 'jshint', 'connect' ] );
 };
