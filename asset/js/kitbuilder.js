@@ -65,7 +65,7 @@
 
     arry.filter( function( author ) {
       if ( author.match( /^@[a-zA-Z0-9_]+$/ ) ) {
-        rtn += '['+ author + '](https://' + author.substr(1) + '.makes.org/), ';
+        rtn += '['+ author + '](https://webmaker.org/u/' + author.substr(1) + '), ';
       }
       else if ( author.match( /\w+/ ) ) {
         rtn += author + ', ';
@@ -139,15 +139,6 @@
      frame.document.querySelector( 'aside > .tags > ul' ).innerHTML = tagListAside;
    });
 
-    $( '#kitBackground' ).keyup( function() {
-      frame.document.querySelector( 'html' ).style.backgroundColor = $( '#kitBackground' ).val() || $( '#kitBackground' ).attr( 'placeholder' );
-    });
-
-    $( '#kitType' ).keyup( function() {
-      sc.qs( '#ribbon', 'Teaching ' + ( $( '#kitType' ).val() || $( '#kitType' ).attr( 'placeholder' ) ) );
-      frame.document.querySelector( 'body' ).setAttribute('class', $( '#kitType' ).val() || $( '#kitType' ).attr( 'placeholder' ));
-    });
-
     $( '#kit-builder-form' ).submit( function( e ) {
       var kitHTML = '<!doctype html><html>' + frame.document.documentElement.innerHTML + '</html>';
       kitHTML = kitHTML.replace( '\n', '' );
@@ -161,10 +152,7 @@
     sc.qs( 'header > hgroup > h2', $( '#kitShortDescription' ).val(), String.trim, mdParser.makeHtml, removePTags );
     sc.qs( '#made-by', $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' ), String.trim, makeAuthorHTML, removePTags );
     sc.qs( 'header > hgroup > h1', $( '#kitName' ).val() || $( '#kitName' ).attr( 'placeholder' ) );
-    sc.qs( '#ribbon', 'Teaching ' + ( $( '#kitType' ).val() || $( '#kitType' ).attr( 'placeholder' ) ) );
 
     frame.document.querySelector( 'header' ).style.background = 'url(' + ($( '#kitThumbnail' ).val() || $( '#kitThumbnail' ).attr( 'placeholder' )) + ') center center / cover';
-    frame.document.querySelector( 'html' ).style.background = $( '#kitBackground' ).val() || $( '#kitBackground' ).attr( 'placeholder' );
-    frame.document.querySelector( 'body' ).classList.add($( '#kitType' ).val() || $( '#kitType' ).attr( 'placeholder' ));
   });
 })( this, this.window, this.jQuery );

@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Provides a content creation focused tool to produce kits for Mozilla Webmaker, and inject the resulting HTML/CSS into Thimble for final tweaks and publishing.",
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "postinstall": "cd asset/vendor/webmaker-kits && npm install"
   },
   "repository": {
     "type": "git",
