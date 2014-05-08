@@ -117,6 +117,8 @@
     $( '#kit-builder-form' ).submit( function( e ) {
       var kitHTML = '<!doctype html><html>' + frame.document.documentElement.innerHTML + '</html>';
       kitHTML = kitHTML.replace( '\n', '' );
+      kitHTML = kitHTML.replace( 'src="dist/js/main.js"', 'src="https://stuff.webmaker.org/webmaker-kits/v2/js/main.js"' );
+      kitHTML = kitHTML.replace( 'href="dist/css/style.css"', 'href="https://stuff.webmaker.org/webmaker-kits/v2/css/style.css"' );
       window.open( 'data:text/plain;' + ( window.btoa ? 'base64,' + btoa( kitHTML ) : kitHTML ) );
       e.preventDefault();
       return false;
