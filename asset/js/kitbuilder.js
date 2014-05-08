@@ -1,24 +1,10 @@
-(function(window, document, $, undefined) {
+/* global jQuery */
+(function( window, document, $, undef ) {
   'use strict';
-
-  // Array Remove - By John Resig (MIT Licensed)
-  if ( !Array.prototype.remove ) {
-    /**
-     * Removes defeined range of elements from the array
-     * @param  {Integer} from Begin range.
-     * @param  {Integer} to   End range, else remove one elemnt.
-     * @return {Array}        The modified array.
-     */
-    Array.prototype.remove = function( from, to ) {
-      var rest = this.slice( ( to || from ) + 1 || this.length );
-      this.length = from < 0 ? this.length + from : from;
-      return this.push.apply( this, rest );
-    };
-  }
 
   // some repeatedly used elements
   var mdParser = new window.Showdown.converter();
-  var sc = window.SC('#previewFrame');
+  var sc = new window.SC('#previewFrame');
 
   /*
     Utility Functions / Filters
@@ -44,7 +30,7 @@
       el = el.trim();
       ary[ idx ] = el;
       if ( el === '' ) {
-        ary.remove( idx );
+        ary.splice( idx, 1 );
       }
     });
     return rtn;
@@ -75,17 +61,7 @@
     rtn = rtn.substr( 0, rtn.length -2 );
 
     // return mdParser.makeHtml( rtn.substr( 0, rtn.length -2 ).trim() );
-    return rtn.filter( String.trim, mdParser.makeHtml, removePTags );
-  }
-
-  /**
-   * Takes an array of strings, and converts it into `<meta>`
-   * tags defining Webmaker Tags.
-   * @param  {Array} array An array of strings/tags
-   * @return {String}      HTML for the Webmaker Tags
-   */
-  function arrayToWMMetaTags( array ) {
-    return '';
+    return sc.filter( rtn, String.trim, mdParser.makeHtml, removePTags );
   }
 
   $( '#previewFrame' ).load( function(){
@@ -118,7 +94,6 @@
       tagList = splitCommaSeparatedList( tagList );
 
       tagList.filter( function( tag ) {
-        console.log(tag);
         tagListAside += '<li><a href="https://webmaker.org/t/' + tag + '" target="_blank">#' + tag + '</a></li>';
 
         if ( !frame.document.querySelector( 'meta[name="webmaker:tags"][content="' + tag + '"]' ) ) {
@@ -155,4 +130,4 @@
 
     frame.document.querySelector( 'header' ).style.background = 'url(' + ($( '#kitThumbnail' ).val() || $( '#kitThumbnail' ).attr( 'placeholder' )) + ') center center / cover';
   });
-})( this, this.window, this.jQuery );
+})( this, document, jQuery );

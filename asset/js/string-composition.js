@@ -11,86 +11,91 @@
  * @author William Duyck <fuzzyfox0@gmail.com>
  */
 if ( !String.prototype.filter ) {
-	String.prototype.filter = function() {
-		'use strict';
-		var args = Array.prototype.slice.call( arguments );
-		var str = this;
+  String.prototype.filter = function() {
+    'use strict';
+    var args = Array.prototype.slice.call( arguments );
+    var str = this;
 
-		args.forEach( function( fn ) {
-			str = fn.call( str, str );
-		});
+    args.forEach( function( fn ) {
+      str = fn.call( str, str );
+    });
 
-		return str;
-	};
+    return str;
+  };
 }
 
-(function( window, document, undefined ) {
-	'use strict';
+(function( window, document, undef ) {
+  'use strict';
 
-	function SC( iframe ) {
-		return new SC.prototype.init( iframe || document );
-	}
+  function SC( iframe ) {
+    // check to see if an iframe was given to us, and
+    // utilize its document if possible
+    if ( iframe !== document ) {
+      this._doc = document.querySelector( iframe ).contentDocument || undef;
+    }
+    else {
+      this._doc = document;
+    }
 
-	SC.prototype = {
-		_doc: document,
-		qs: function( selector ) {
-			// get the DOMElement base on selector
-			var selected = this._doc.querySelector( selector );
-			var innerHTML = '';
-			var args = Array.prototype.slice.call(arguments);
+    // // check that there is a document we can select from,
+    // // if not return an empty function
+    // if ( !this._doc.querySelector ) {
+    //   return function(){};
+    // }
+  }
 
-			// if no element matched return undefined
-			if ( !selected ) {
-				return undefined;
-			}
+  SC.prototype = {
+    _doc: document,
+    filter: function( str ) {
+      var args = Array.prototype.slice.call( arguments );
+      args.shift();
 
-			// remove the first arg as its been used, and is named
-			args.shift();
+      args.forEach( function( fn ) {
+        str = fn.call( str, str );
+      });
 
-			// if second arg === string the use it as new innerHTML
-			if ( typeof args[ 0 ] === 'string' ) {
-				innerHTML = args.shift();
-			}
-			// if second arg === function then use
-			else if ( typeof args[ 0 ] === 'function' ) {
-				innerHTML = selected.innerHTML;
-			}
-			// this function requires 2 args...
-			// if there isnt a second return the selected DOMElement
-			else {
-				return selected;
-			}
+      return str;
+    },
+    qs: function( selector ) {
+      // get the DOMElement base on selector
+      var selected = this._doc.querySelector( selector );
+      var innerHTML = '';
+      var args = Array.prototype.slice.call(arguments);
 
-			// run each function modifying the innerHTML each time.
-			innerHTML = String.prototype.filter.apply( innerHTML , args );
+      // if no element matched return undefined
+      if ( !selected ) {
+        return;
+      }
 
-			// once modifications made, appy to selected element
-			selected.innerHTML = innerHTML;
+      // remove the first arg as its been used, and is named
+      args.shift();
 
-			// return selected
-			return selected;
-		},
-		init: function( iframe ) {
-			// check to see if an iframe was given to us, and
-			// utilize its document if possible
-			if ( iframe !== document ) {
-				this._doc = document.querySelector( iframe ).contentDocument || undefined;
-			}
-			else {
-				this._doc = document;
-			}
+      // if second arg === string the use it as new innerHTML
+      if ( typeof args[ 0 ] === 'string' ) {
+        innerHTML = args.shift();
+      }
+      // if second arg === function then use
+      else if ( typeof args[ 0 ] === 'function' ) {
+        innerHTML = selected.innerHTML;
+      }
+      // this function requires 2 args...
+      // if there isnt a second return the selected DOMElement
+      else {
+        return selected;
+      }
 
-			// check that there is a document we can select from,
-			// if not return an empty function
-			if ( !this._doc.querySelector ) {
-				return function(){};
-			}
+      args = [ innerHTML ].concat( args );
 
-			return this;
-		}
-	};
+      // run each function modifying the innerHTML each time.
+      innerHTML = this.filter.apply( innerHTML , args );
 
-	SC.prototype.init.prototype = SC.prototype;
+      // once modifications made, appy to selected element
+      selected.innerHTML = innerHTML;
 
-	window.SC = SC;
-})( this, this.document );
+      // return selected
+      return selected;
+    }
+  };
+
+  window.SC = SC;
+})( this, document );
