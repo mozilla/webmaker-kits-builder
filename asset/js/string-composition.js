@@ -1,29 +1,3 @@
-/**
- * String.prototype.filter
- *
- * Allows for an arbitrary number of arguments which take a string as a single
- * parameter, and return a string, to modify the string.
- *
- * @example
- *  '  This is my string '.filter(String.trim, function(str){return str + '!';}, String.bold);
- *  // returns '<b>This is my string!</b>'
- *
- * @author William Duyck <fuzzyfox0@gmail.com>
- */
-if ( !String.prototype.filter ) {
-  String.prototype.filter = function() {
-    'use strict';
-    var args = Array.prototype.slice.call( arguments );
-    var str = this;
-
-    args.forEach( function( fn ) {
-      str = fn.call( str, str );
-    });
-
-    return str;
-  };
-}
-
 (function( window, document, undef ) {
   'use strict';
 
@@ -37,17 +11,31 @@ if ( !String.prototype.filter ) {
       this._doc = document;
     }
 
-    // // check that there is a document we can select from,
-    // // if not return an empty function
-    // if ( !this._doc.querySelector ) {
-    //   return function(){};
-    // }
+    // check that there is a document we can select from,
+    // if not return an empty function
+    if ( !this._doc.querySelector ) {
+      return function(){};
+    }
   }
 
   SC.prototype = {
     _doc: document,
+    /**
+     * Allows for an arbitrary number of arguments (filters) to be applied to
+     * a String. Each of which take a string as a single parameter and
+     * return a string.
+     *
+     * @example
+     *  SC.filter('  This is my string ', String.trim, function(str){return str + '!';}, String.bold);
+     *  // returns '<b>This is my string!</b>'
+     *
+     * @param  {String} str the string to apply filters to.
+     * @return {String}     the modified string.
+     */
     filter: function( str ) {
       var args = Array.prototype.slice.call( arguments );
+
+      // remove first arg (str) from args list.
       args.shift();
 
       args.forEach( function( fn ) {
@@ -56,6 +44,15 @@ if ( !String.prototype.filter ) {
 
       return str;
     },
+    /**
+     * Shortcut for document.querySelector that is applied to the
+     * document used to initilize the SC object.
+     *
+     * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/document.querySelector}
+     *
+     * @param  {String} selector the CSS selector for the desired element
+     * @return {Element}         the selected Element or undefined.
+     */
     qs: function( selector ) {
       // get the DOMElement base on selector
       var selected = this._doc.querySelector( selector );
