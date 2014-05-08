@@ -4,3 +4,6 @@
 [submodule "asset/vendor/webmaker-kits"]
 	path = asset/vendor/webmaker-kits
 	url = https://github.com/mozilla/webmaker-kits.git
+[submodule "webmaker-tagger"]
+	path = asset/vendor/webmaker-tagger
+	url = https://github.com/fuzzyfox/webmaker-tagger.git

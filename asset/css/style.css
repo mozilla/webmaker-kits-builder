@@ -6,6 +6,7 @@ html, body {
 
 #preview {
   overflow: hidden;
+  height:1000px;
 }
 
 #previewFrame {

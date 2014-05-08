@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Kit Builder</title>
   <link rel="stylesheet" href="asset/css/style.css">
+  <link rel="stylesheet" href="asset/vendor/jqueryui.min.css">
+  <link rel="stylesheet" href="asset/vendor/webmaker-tagger/tagger.css">
 </head>
 <body>
 
@@ -126,10 +128,15 @@ Got a check-list of criteria, or things to look for in a great completed project
               </div>
 
               <!-- Text input-->
-              <div class="form-group">
+              <div class="form-group well">
                 <label class="control-label" for="kitTags">Tags</label>
-                <input id="kitTags" name="kitTags" placeholder="HTML, CSS, DesignAccessibility, Remixing, Navigation" class="form-control input-md" type="text">
+                <input id="tagger" name="tagger" type="text" class="form-control input-md">
+                <input type="hidden" id="tagger-output" name="kitTags" placeholder="HTML, CSS, DesignAccessibility, Remixing, Navigation">
                 <span class="help-block">A comma seperated list of tags for your kit.</span>
+                <h4><span class="weblit-title">Web Literacy</span> Tags:</h4>
+                <div id="weblit-tag"></div>
+                <h4>Contextual Tags:</h4>
+                <div id="tag"></div>
               </div>
 
               <button type="submit" class="btn btn-primary btn-lg pull-right" id="buildButton">Build</button>
@@ -156,13 +163,16 @@ Got a check-list of criteria, or things to look for in a great completed project
 
     <!-- end kit builder -->
     <script src="asset/vendor/jquery.min.js"></script>
+    <script src="asset/vendor/jqueryui.min.js"></script>
     <script src="asset/vendor/eqColumns.jquery.js"></script>
     <script src="asset/vendor/showdown.min.js"></script>
+    <script src="asset/vendor/webmaker-tagger/web-literacy-client/dist/web-literacy-client.with-langs.js"></script>
+    <script src="asset/vendor/webmaker-tagger/tagger.js"></script>
     <script src="asset/js/string-composition.js"></script>
     <script src="asset/js/kitbuilder.js"></script>
     <script>
       $(window).load(function() {
-        $('main > section').eqHeights({parentSelector:'main'});
+        // $('main > section').eqHeights({parentSelector:'main'});
       });
     </script>
   </body>
