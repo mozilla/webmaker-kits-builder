@@ -87,7 +87,7 @@
       sc.qs( 'main', $( '#kitContent' ).val(), mdParser.makeHtml );
     });
 
-    $( '#tagger-output' ).change( function() {
+    $( '#kitTags' ).change( function() {
       var tagList = $( this ).val() || $( this ).attr( 'placeholder' ),
       tagListAside = '';
 
