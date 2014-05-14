@@ -10,6 +10,5 @@
   },
   "_source": "git://github.com/coreyti/showdown.git",
   "_target": "~0.3.1",
-  "_originalSource": "coreyti/showdown",
-  "_direct": true
+  "_originalSource": "coreyti/showdown"
 }

@@ -21,6 +21,5 @@
   },
   "_source": "git://github.com/mozilla/webmaker-kits.git",
   "_target": "~2.3.14",
-  "_originalSource": "mozilla/webmaker-kits",
-  "_direct": true
+  "_originalSource": "mozilla/webmaker-kits"
 }

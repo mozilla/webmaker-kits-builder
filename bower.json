@@ -7,9 +7,9 @@
   ],
   "license": "MPL-2",
   "dependencies": {
-    "makerstrap": "~0.1.7",
     "webmaker-kits": "mozilla/webmaker-kits#~2.3.14",
     "showdown": "coreyti/showdown#~0.3.1",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "makerstrap": "mozilla/makerstrap#~0.1.7"
   }
 }
