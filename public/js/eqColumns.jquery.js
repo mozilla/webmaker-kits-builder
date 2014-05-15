@@ -1,10 +1,10 @@
 $.fn.eqHeights = function(options) {
 
-	var defaults = {  
+	var defaults = {
 		child: false ,
 		parentSelector:null
-	};  
-	var options = $.extend(defaults, options); 
+	};
+	var options = $.extend(defaults, options);
 
 	var el = $(this);
 	if (el.length > 0 && !el.data('eqHeights')) {
