@@ -10,7 +10,10 @@
     "webmaker-kits": "mozilla/webmaker-kits#~2.3.14",
     "showdown": "coreyti/showdown#~0.3.1",
     "jquery": "~2.1.1",
-    "makerstrap": "mozilla/makerstrap#~0.1.7"
+    "makerstrap": "mozilla/makerstrap#~0.1.7",
+    "jqueryui": "~1.10.4",
+    "webmaker-tagger": "https://github.com/fuzzyfox/webmaker-tagger/archive/gh-pages.tar.gz",
+    "web-literacy-client": "mozilla/web-literacy-client#~1.1.1"
   },
   "resolutions": {
     "makerstrap": "0.1.2"
