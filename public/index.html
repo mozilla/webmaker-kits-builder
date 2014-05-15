@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Kit Builder</title>
-  <link rel="stylesheet" href="asset/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/vendor/jqueryui/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/vendor/webmaker-tagger/tagger.css">
 </head>
 <body>
 
@@ -25,7 +27,7 @@
 
       <div style="height: 0px;" class="collapse navbar-collapse" collapse="isCollapsed">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="https://github.com/fuzzyfox/webmaker-kits-builder"><span class="fa fa-github"></span> fuzzyfox/webmaker-kits-builder</a></li>
+          <li><a href="https://github.com/mozilla/webmaker-kits-builder"><span class="fa fa-github"></span> mozilla/webmaker-kits-builder</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div>
@@ -126,10 +128,12 @@ Got a check-list of criteria, or things to look for in a great completed project
               </div>
 
               <!-- Text input-->
-              <div class="form-group">
+              <div class="form-group well">
                 <label class="control-label" for="kitTags">Tags</label>
-                <input id="kitTags" name="kitTags" placeholder="HTML, CSS, DesignAccessibility, Remixing, Navigation" class="form-control input-md" type="text">
-                <span class="help-block">A comma seperated list of tags for your kit.</span>
+                <input id="tagger-input" name="tagger-input" type="text" class="form-control input-md">
+                <input type="hidden" id="kitTags" name="kitTags" placeholder="HTML, CSS, DesignAccessibility, Remixing, Navigation">
+                <span class="help-block">Enter tags one by one. Remove tags by clicking the <i class="fa fa-times"></i></span>
+                <div id="tagger-widget"></div>
               </div>
 
               <button type="submit" class="btn btn-primary btn-lg pull-right" id="buildButton">Build</button>
@@ -139,7 +143,7 @@ Got a check-list of criteria, or things to look for in a great completed project
         </section>
 
         <section id="preview" class="col-md-6">
-          <iframe src="asset/vendor/webmaker-kits/kit.html" frameborder="0" id="previewFrame"></iframe>
+          <iframe src="/vendor/webmaker-kits/kit.html" frameborder="0" id="previewFrame"></iframe>
         </section>
       </section>
     </main>
@@ -155,14 +159,25 @@ Got a check-list of criteria, or things to look for in a great completed project
     </footer>
 
     <!-- end kit builder -->
-    <script src="asset/vendor/jquery.min.js"></script>
-    <script src="asset/vendor/eqColumns.jquery.js"></script>
-    <script src="asset/vendor/showdown.min.js"></script>
-    <script src="asset/js/string-composition.js"></script>
-    <script src="asset/js/kitbuilder.js"></script>
+    <script src="/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/vendor/jqueryui/ui/minified/jquery-ui.min.js"></script>
+    <script src="/js/eqColumns.jquery.js"></script>
+    <script src="/vendor/showdown/src/showdown.js"></script>
+    <script src="/vendor/web-literacy-client/dist/web-literacy-client.with-langs.js"></script>
+    <script src="/vendor/webmaker-tagger/tagger.js"></script>
+    <script src="/js/string-composition.js"></script>
+    <script src="/js/kitbuilder.js"></script>
     <script>
       $(window).load(function() {
-        $('main > section').eqHeights({parentSelector:'main'});
+        var tagger = new WMTagger({
+          input: '#tagger-input', // set input text field [req]
+          output: '#kitTags', // set output text field [req]
+          display: '#tagger-widget', // set wrapper for tag display
+        }, function(tagger){
+          $('#tagger-widget .wmtagger-weblit-tags').css({
+            display: 'block'
+          }).prepend('<h4>' + tagger.wlc.title() + ' Tags</h4>').after('<h4>Context Tags</h4>');
+        });
       });
     </script>
   </body>

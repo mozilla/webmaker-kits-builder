@@ -1,11 +1,19 @@
-@import url(https://s3-us-west-2.amazonaws.com/makerstrap/makerstrap.complete.min.css);
+@import '../vendor/makerstrap/less/makerstrap';
+@makerstrap-bower-path: '../vendor';
+
+@import '../vendor/font-awesome/less/font-awesome';
+@fa-font-path: '../vendor/font-awesome/fonts';
+
+// Animations
+@import (less) '../vendor/animate.css/animate.css';
 
 html, body {
-  background-color: #e3eaee;
+  background-color: @lightgrey;
 }
 
 #preview {
   overflow: hidden;
+  height:1000px;
 }
 
 #previewFrame {

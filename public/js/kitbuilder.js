@@ -87,7 +87,7 @@
       sc.qs( 'main', $( '#kitContent' ).val(), mdParser.makeHtml );
     });
 
-    $( '#kitTags' ).keyup( function() {
+    $( '#kitTags' ).change( function() {
       var tagList = $( this ).val() || $( this ).attr( 'placeholder' ),
       tagListAside = '';
 
@@ -110,8 +110,6 @@
         element.parentNode.removeChild( element );
       }
     });
-
-     frame.document.querySelector( 'aside > .tags > ul' ).innerHTML = tagListAside;
    });
 
     $( '#kit-builder-form' ).submit( function( e ) {
