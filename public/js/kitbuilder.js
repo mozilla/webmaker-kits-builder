@@ -110,8 +110,6 @@
         element.parentNode.removeChild( element );
       }
     });
-
-     frame.document.querySelector( 'aside > .tags > ul' ).innerHTML = tagListAside;
    });
 
     $( '#kit-builder-form' ).submit( function( e ) {
