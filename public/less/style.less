@@ -1,5 +1,11 @@
-@makerstrap-bower-path: 'public/vendor';
-@import 'public/vendor/makerstrap/less/makerstrap';
+@import '../vendor/makerstrap/less/makerstrap';
+@makerstrap-bower-path: '../vendor';
+
+@import '../vendor/font-awesome/less/font-awesome';
+@fa-font-path: '../vendor/font-awesome/fonts';
+
+// Animations
+@import (less) '../vendor/animate.css/animate.css';
 
 html, body {
   background-color: @lightgrey;
@@ -7,6 +13,13 @@ html, body {
 
 #preview {
   overflow: hidden;
+  /*
+    HACK HACK HACK
+    fixing font-size and then using em to circumvent weird px vs
+    device pixel quirks. To be resolved on UX pass.
+  */
+  font-size: 10px;
+  height: 100em;
 }
 
 #previewFrame {
