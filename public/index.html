@@ -174,9 +174,7 @@ Got a check-list of criteria, or things to look for in a great completed project
           output: '#kitTags', // set output text field [req]
           display: '#tagger-widget', // set wrapper for tag display
         }, function(tagger){
-          $('#tagger-widget .wmtagger-weblit-tags').css({
-            display: 'block'
-          }).prepend('<h4>' + tagger.wlc.title() + ' Tags</h4>').after('<h4>Context Tags</h4>');
+          $('#tagger-widget .wmtagger-weblit-tags').show().prepend('<h4>' + tagger.wlc.title() + ' Tags</h4>').after('<h4>Context Tags</h4>');
         });
       });
     </script>
