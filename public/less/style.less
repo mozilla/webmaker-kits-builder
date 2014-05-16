@@ -13,7 +13,13 @@ html, body {
 
 #preview {
   overflow: hidden;
-  height:1000px;
+  /*
+    HACK HACK HACK
+    fixing font-size and then using em to circumvent weird px vs
+    device pixel quirks. To be resolved on UX pass.
+  */
+  font-size: 10px;
+  height: 100em;
 }
 
 #previewFrame {
