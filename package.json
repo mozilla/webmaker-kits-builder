@@ -1,6 +1,6 @@
 {
   "name": "webmaker-kit-builder",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Provides a content creation focused tool to produce kits for Mozilla Webmaker, and inject the resulting HTML/CSS into Thimble for final tweaks and publishing.",
   "scripts": {
     "test": "grunt",
