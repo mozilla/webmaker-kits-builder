@@ -1,0 +1,40 @@
+@import '../vendor/makerstrap/less/makerstrap';
+@makerstrap-bower-path: '../vendor';
+
+@import '../vendor/font-awesome/less/font-awesome';
+@fa-font-path: '../vendor/font-awesome/fonts';
+
+// Animations
+@import (less) '../vendor/animate.css/animate.css';
+
+html, body {
+  background-color: @lightgrey;
+}
+
+#preview {
+  overflow: hidden;
+  /*
+    HACK HACK HACK
+    fixing font-size and then using em to circumvent weird px vs
+    device pixel quirks. To be resolved on UX pass.
+  */
+  font-size: 10px;
+  height: 100em;
+}
+
+#previewFrame {
+  width: 200%;
+  height: 200%;
+  margin-right: -100%;
+  margin-bottom: -100%;
+  -webkit-transform: scale(0.5);
+  -webkit-transform-origin: 0 0;
+  -moz-transform: scale(0.5);
+  -moz-transform-origin: 0 0;
+  -ms-transform: scale(0.5);
+  -ms-transform-origin: 0 0;
+  transform: scale(0.5);
+  transform-origin: 0 0;
+  box-shadow: 0 0 10px rgba(77, 78, 83, 0.6);
+  border: none;
+}
