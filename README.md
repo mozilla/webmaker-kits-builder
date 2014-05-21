@@ -2,17 +2,11 @@
 // brief intro to come
 
 ## Builder Usage
-
 * Most of the form inputs accept markdown so that you can quickly churn out your content w/ the formatting you want.
 * In the "Author(s)" field using an "@" symbol before a webmaker username will convert it into a link to that users makes.
 * The header block works best w/ darker background images.
 
 ## Development
-### Clone this repo recursively
-When cloning this repository you need to do so recursively else things go wrong. Its simple to do so however.
-
-	git clone https://github.com/mozilla/webmaker-kits-builder.git
-
 ### Getting Started
 Make sure to have **grunt** and **bower** installed globally.
 
