@@ -6,15 +6,12 @@
 * Most of the form inputs accept markdown so that you can quickly churn out your content w/ the formatting you want.
 * In the "Author(s)" field using an "@" symbol before a webmaker username will convert it into a link to that users makes.
 * The header block works best w/ darker background images.
-* The following two URLs for the stylesheet + js will need replacing on publish
-	* `dist/css/style.css` > `https://stuff.webmaker.org/webmaker-kits/v2/css/style.css`
-	* `dist/js/main.js` > `https://stuff.webmaker.org/webmaker-kits/v2/js/main.js`
 
 ## Development
 ### Clone this repo recursively
 When cloning this repository you need to do so recursively else things go wrong. Its simple to do so however.
 
-	git clone https://github.com/fuzzyfox/webmaker-kits-builder.git --recursive
+	git clone https://github.com/mozilla/webmaker-kits-builder.git
 
 ### Getting Started
 Make sure to have **grunt** and **bower** installed globally.

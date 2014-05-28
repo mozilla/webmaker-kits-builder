@@ -22,15 +22,33 @@ module.exports = function( grunt ) {
         'asset/js/**/*.js'
       ]
     },
-    watch: {
-      files: [ 'asset/js/*.js' ],
-      tasks: [ 'jshint' ]
+
+    less: {
+      development: {
+        options: {
+          paths: [ 'public/css' ],
+          compress: true,
+          sourceMap: true,
+          sourceMapBasepath: '/',
+          sourceMapRootpath: '/'
+        },
+        files: {
+          'public/css/style.css': 'public/less/style.less'
+        }
+      }
     },
+
+    watch: {
+      files: [ 'public/js/*.js', 'public/less/*.less' ],
+      tasks: [ 'jshint', 'less' ]
+    },
+
     connect: {
       server: {
         options: {
           port: 1111,
-          useAvailablePort: true
+          useAvailablePort: true,
+          base: 'public/'
         }
       }
     }
@@ -38,6 +56,7 @@ module.exports = function( grunt ) {
 
   grunt.loadNpmTasks( 'grunt-contrib-jshint' );
   grunt.loadNpmTasks( 'grunt-contrib-connect' );
+  grunt.loadNpmTasks( 'grunt-contrib-less' );
   grunt.loadNpmTasks( 'grunt-contrib-watch' );
-  grunt.registerTask( 'default', [ 'jshint', 'connect', 'watch' ] );
+  grunt.registerTask( 'default', [ 'jshint', 'less', 'connect', 'watch' ] );
 };
