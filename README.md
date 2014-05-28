@@ -34,6 +34,6 @@ Do all this w/ ease!
 	mv .git/hooks/pre-commit.sample .git/hooks/pre-commit
 	echo "\n# run grunt build before commit, abort if errors\ngrunt" >> .git/hooks/pre-commit
 
-## Lisence
+## License
 Unless otherwise stated:
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
