@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+  <!--
+    base loader for postMessage based site previews.
+    Note that the only thing this page does is set up
+    a 100% width, 100% height iframe, into which data
+    can be loaded for previewing, then inject the default
+    state for kitbuilder.
+  -->
+  <head>
+    <meta charset="utf-8">
+    <title>Kit Builder preview loader</title>
+
+    <!-- Preview Loader (stolen from Thimble mostly) -->
+    <style>
+    html, body, iframe {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      border: none;
+    }
+    iframe {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    </style>
+    <script src="/vendor/nunjucks/browser/nunjucks-slim.min.js"></script>
+    <script src="/js/nunjucks-templates.js"></script>
+    <script>
+      (function() {
+        // set nunjucks env
+
+        // whoever has embedded us, we need to be able to talk back to.
+        var owner = false;
+
+        // persistent iframe#document reference
+        var doc;
+
+        /**
+         * content management object
+         */
+         var content = {
+          overwrite: function overwriteIFrame(data) {
+            var sourceCode = nunjucks.render( 'templates/kit.html', data.components ) || data.sourceCode;
+
+            var iframe = document.createElement("iframe");
+            iframe.style.opacity = 0.0;
+            document.body.appendChild(iframe);
+
+            // set new content
+            doc = iframe.contentDocument;
+            doc.open();
+            doc.write(sourceCode);
+            doc.close();
+
+            // kill off old iframe, reveal new iframe
+            document.body.removeChild(document.querySelector("iframe"));
+            iframe.style.opacity = 1.0;
+
+            // also insert a BASE tag with new tab/window as default target,
+            // so that links don't open in our embed iframe.
+            var baseTag = doc.createElement('base');
+            baseTag.setAttribute('target', '_blank');
+            doc.querySelector("head").appendChild(baseTag);
+          }
+        }
+
+        /**
+         * Listen for post messages, which can be of the following format:
+         *
+         *  type: overwrite  -  replace the content in its entirety
+         *                      with a new iframe, with the new content.
+         */
+         window.addEventListener("message", function(event) {
+          if(event.source === window) return;
+
+          try {
+            data = JSON.parse(event.data);
+
+            // Currently we only support "overwrite",
+            // but once a good DOM diff solution is avaible,
+            // we want to extend this instruction set to
+            // also allow selecting diff-based updating.
+            if(data.type) {
+
+              if(data.type === "overwrite") {
+
+                // This source told us to update - it is therefore
+                // our owner and we will inform it of events.
+                if(!owner) { owner = event.source; }
+
+                if ("sourceCode" in data && typeof data.sourceCode === "string") {
+                  content.overwrite(data);
+                }
+                if ("components" in data && typeof data.components === "object") {
+                  content.overwrite(data);
+                }
+                else {
+                  console.error("preview payload had no associated, valid sourceCode", event.data);
+                }
+              }
+
+            } else {
+              console.error("preview payload had no associated instruction type", event.data);
+            }
+          } catch (e) {
+            console.error("JSON.parse failed for preview payload", event.data);
+          }
+        });
+      }());
+    </script>
+  </head>
+<body>
+  <iframe></iframe>
+</body>
+</html>

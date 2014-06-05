@@ -2,9 +2,13 @@
 (function( window, document, $, undef ) {
   'use strict';
 
-  // some repeatedly used elements
+  // setup markdown parser
   var mdParser = new window.Showdown.converter();
-  var sc = new window.SC('#previewFrame');
+
+  // something to store kit components in
+  var components = {
+    tags: []
+  };
 
   /*
     Utility Functions / Filters
@@ -60,74 +64,122 @@
 
     rtn = rtn.substr( 0, rtn.length -2 );
 
-    // return mdParser.makeHtml( rtn.substr( 0, rtn.length -2 ).trim() );
-    return sc.filter( rtn, String.trim, mdParser.makeHtml, removePTags );
+    return mdParser.makeHtml( removePTags( rtn.trim() ) );
   }
 
   $( '#previewFrame' ).load( function(){
     var frame = this.contentWindow;
-    // inject on keypress
+
+    /**
+     * Sends an overwrite command to the preview window
+     *
+     * @param  {Object} object the components to send
+     */
+    function sendOverwrite( object ) {
+      object = object || components;
+
+      var message = {
+        type: 'overwrite',
+        components: object
+      };
+
+      frame.postMessage( JSON.stringify( message ), '*' );
+    }
+
+    // udpate on keypress
     $( '#kitName' ).keyup( function() {
-      sc.qs( 'header > hgroup > h1', $( '#kitName' ).val() || $( '#kitName' ).attr( 'placeholder' ) );
+      $.extend( components, {
+        title: $( '#kitName' ).val().trim() || $( '#kitName' ).attr( 'placeholder' )
+      });
+
+      sendOverwrite();
     });
 
     $( '#kitAuthor' ).keyup( function() {
-      sc.qs( '#made-by', $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' ), String.trim, makeAuthorHTML, removePTags );
+      var authors = $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' );
+
+      $.extend( components, {
+        authors: makeAuthorHTML( authors.trim() )
+      });
+
+      sendOverwrite();
     });
 
     $( '#kitShortDescription' ).keyup( function() {
-      sc.qs( 'header > hgroup > h2', $( '#kitShortDescription' ).val(), String.trim, mdParser.makeHtml, removePTags );
+      var summary = $( '#kitShortDescription' ).val().trim();
+      summary = mdParser.makeHtml( summary );
+
+      $.extend( components, {
+        summary: removePTags( summary )
+      });
+
+      sendOverwrite();
     });
 
     $( '#kitThumbnail' ).keyup( function() {
-      frame.document.querySelector( 'header' ).style.backgroundImage = 'url(' + ($( '#kitThumbnail' ).val() || $( '#kitThumbnail' ).attr( 'placeholder' )) + ')';
-    });
+      $.extend( components, {
+        headerImage: $( '#kitThumbnail' ).val().trim() || $( '#kitThumbnail' ).attr( 'placeholder' )
+      });
 
-    $( '#kitContent' ).keyup( function() {
-      sc.qs( 'main', $( '#kitContent' ).val(), mdParser.makeHtml );
+      sendOverwrite();
     });
 
     $( '#kitTags' ).change( function() {
-      var tagList = $( this ).val() || $( this ).attr( 'placeholder' ),
-      tagListAside = '';
-
+      var tagList = $( this ).val() || $( this ).attr( 'placeholder' );
       tagList = splitCommaSeparatedList( tagList );
 
       tagList.filter( function( tag ) {
-        tagListAside += '<li><a href="https://webmaker.org/t/' + tag + '" target="_blank">#' + tag + '</a></li>';
-
-        if ( !frame.document.querySelector( 'meta[name="webmaker:tags"][content="' + tag + '"]' ) ) {
-          var meta = frame.document.createElement( 'meta' );
-          meta.name = 'webmaker:tags';
-          meta.content = tag;
-          frame.document.head.appendChild( meta );
+        if ( components.tags.indexOf( tag ) === -1 ) {
+          components.tags.push( tag );
         }
+      });
+
+      components.tags.forEach( function( tag, idx ) {
+        if( tagList.indexOf( tag ) === -1 ) {
+          components.tags.splice( idx, 1 );
+        }
+      });
+
+      sendOverwrite();
     });
 
-     var tagListMeta = frame.document.querySelectorAll( 'meta[name="webmaker:tags"]' );
-     Array.prototype.forEach.call(tagListMeta, function( element ){
-       if ( tagList.indexOf( element.content ) === -1 && element.content !== 'kit' && element.content !== 'kit-builder' ) {
-        element.parentNode.removeChild( element );
-      }
-    });
-   });
+    // inject initial state
+    (function() {
+      var summary = $( '#kitShortDescription' ).val().trim();
+      summary = mdParser.makeHtml( summary );
+      var authors = $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' );
 
+      var tagList = $( '#kitTags' ).val() || $( '#kitTags' ).attr( 'placeholder' );
+      tagList = splitCommaSeparatedList( tagList );
+
+      tagList.filter( function( tag ) {
+        if ( components.tags.indexOf( tag ) === -1 ) {
+          components.tags.push( tag );
+        }
+      });
+
+      $.extend( components, {
+        headerImage: $( '#kitThumbnail' ).val().trim() || $( '#kitThumbnail' ).attr( 'placeholder' ),
+        summary: removePTags( summary ),
+        authors: makeAuthorHTML( authors.trim() ),
+        title: $( '#kitName' ).val().trim() || $( '#kitName' ).attr( 'placeholder' )
+      });
+
+      sendOverwrite();
+    }());
+
+    // build kit!
     $( '#kit-builder-form' ).submit( function( e ) {
-      var kitHTML = '<!doctype html><html>' + frame.document.documentElement.innerHTML + '</html>';
-      kitHTML = kitHTML.replace( '\n', '' );
-      kitHTML = kitHTML.replace( 'src="dist/js/main.js"', 'src="https://stuff.webmaker.org/webmaker-kits/v2/js/main.js"' );
-      kitHTML = kitHTML.replace( 'href="dist/css/style.css"', 'href="https://stuff.webmaker.org/webmaker-kits/v2/css/style.css"' );
+      $.extend( components, {
+        webmakerKitsJS: 'https://stuff.webmaker.org/webmaker-kits/v2/js/main.js',
+        webmakerKitsCSS: 'https://stuff.webmaker.org/webmaker-kits/v2/css/style.css'
+      });
+
+      var kitHTML = window.nunjucks.render( 'templates/kit.html', components );
+
       window.open( 'data:text/plain;' + ( window.btoa ? 'base64,' + btoa( kitHTML ) : kitHTML ) );
       e.preventDefault();
       return false;
     });
-
-    // inject initial state
-    sc.qs( 'main', $( '#kitContent' ).val(), mdParser.makeHtml );
-    sc.qs( 'header > hgroup > h2', $( '#kitShortDescription' ).val(), String.trim, mdParser.makeHtml, removePTags );
-    sc.qs( '#made-by', $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' ), String.trim, makeAuthorHTML, removePTags );
-    sc.qs( 'header > hgroup > h1', $( '#kitName' ).val() || $( '#kitName' ).attr( 'placeholder' ) );
-
-    frame.document.querySelector( 'header' ).style.background = 'url(' + ($( '#kitThumbnail' ).val() || $( '#kitThumbnail' ).attr( 'placeholder' )) + ') center center / cover';
   });
 })( this, document, jQuery );
