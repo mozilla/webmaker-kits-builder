@@ -158,6 +158,88 @@
       sendOverwrite();
     });
 
+    $( '#kitDescription' ).keyup( function() {
+      var description = $( '#kitDescription' ).val().trim();
+      description = mdParser.makeHtml( description );
+
+      $.extend( components, {
+        description: description
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitObjectives' ).keyup( function() {
+      var objectives = $( '#kitObjectives' ).val().trim();
+      objectives = mdParser.makeHtml( objectives );
+
+      $.extend( components, {
+        objectives: objectives
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitAgenda' ).keyup( function() {
+      var agenda = $( '#kitAgenda' ).val().trim();
+      agenda = mdParser.makeHtml( agenda );
+
+      // hacky method to add the agenda class to the generated <ol>
+      var tmpDiv = document.createElement( 'div' );
+      tmpDiv.innerHTML = agenda;
+      $( tmpDiv ).children( 'ol' ).eq( 0 ).addClass( 'agenda' );
+
+      $.extend( components, {
+        agenda: tmpDiv.innerHTML
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitOutcomes' ).keyup( function() {
+      var outcomes = $( '#kitOutcomes' ).val().trim();
+      outcomes = mdParser.makeHtml( outcomes );
+
+      $.extend( components, {
+        outcomes: outcomes
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitPreperation' ).keyup( function() {
+      var preperation = $( '#kitPreperation' ).val().trim();
+      preperation = mdParser.makeHtml( preperation );
+
+      $.extend( components, {
+        preperation: preperation
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitAssessment' ).keyup( function() {
+      var assessment = $( '#kitAssessment' ).val().trim();
+      assessment = mdParser.makeHtml( assessment );
+
+      $.extend( components, {
+        assessment: assessment
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitCriteria' ).keyup( function() {
+      var criteria = $( '#kitCriteria' ).val().trim();
+      criteria = mdParser.makeHtml( criteria );
+
+      $.extend( components, {
+        criteria: criteria
+      });
+
+      sendOverwrite();
+    });
+
     $( '#kitThumbnail' ).keyup( function() {
       $.extend( components, {
         headerImage: $( '#kitThumbnail' ).val().trim() || $( '#kitThumbnail' ).attr( 'placeholder' )
@@ -189,7 +271,33 @@
     (function() {
       var summary = $( '#kitShortDescription' ).val().trim();
       summary = mdParser.makeHtml( summary );
+
       var authors = $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' );
+
+      var description = $( '#kitDescription' ).val().trim();
+      description = mdParser.makeHtml( description );
+
+      var objectives = $( '#kitObjectives' ).val().trim();
+      objectives = mdParser.makeHtml( objectives );
+
+      var agenda = $( '#kitAgenda' ).val().trim();
+      agenda = mdParser.makeHtml( agenda );
+      var tmpDiv = document.createElement( 'div' ); // hacky method to add the agenda class to the generated <ol>
+      tmpDiv.innerHTML = agenda;
+      $( tmpDiv ).children( 'ol' ).eq( 0 ).addClass( 'agenda' );
+      agenda = tmpDiv.innerHTML;
+
+      var outcomes = $( '#kitOutcomes' ).val().trim();
+      outcomes = mdParser.makeHtml( outcomes );
+
+      var preperation = $( '#kitPreperation' ).val().trim();
+      preperation = mdParser.makeHtml( preperation );
+
+      var assessment = $( '#kitAssessment' ).val().trim();
+      assessment = mdParser.makeHtml( assessment );
+
+      var criteria = $( '#kitCriteria' ).val().trim();
+      criteria = mdParser.makeHtml( criteria );
 
       var tagList = $( '#kitTags' ).val() || $( '#kitTags' ).attr( 'placeholder' );
       tagList = splitCommaSeparatedList( tagList );
@@ -204,7 +312,14 @@
         headerImage: $( '#kitThumbnail' ).val().trim() || $( '#kitThumbnail' ).attr( 'placeholder' ),
         summary: removePTags( summary ),
         authors: makeAuthorHTML( authors.trim() ),
-        title: $( '#kitName' ).val().trim() || $( '#kitName' ).attr( 'placeholder' )
+        title: $( '#kitName' ).val().trim() || $( '#kitName' ).attr( 'placeholder' ),
+        description: description,
+        objectives: objectives,
+        agenda: agenda,
+        outcomes: outcomes,
+        preperation: preperation,
+        assessment: assessment,
+        criteria: criteria
       });
 
       sendOverwrite();

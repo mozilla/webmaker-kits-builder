@@ -85,18 +85,15 @@
             <legend>Content</legend>
             <!-- Textarea -->
             <div class="form-group">
-              <label class="control-label" for="kitContent">Main Content</label>
-              <textarea class="form-control" id="kitContent" name="kitContent" rows="15" required>
-## Description
+              <label class="control-label" for="kitDescription">Description</label>
+              <textarea class="form-control" id="kitDescription" name="kitDescription" rows="5" required>
 What is your teaching kit all about? What does it help people make or learn? What was your inspiration for creating it?
+              </textarea>
+            </div>
 
-## Agenda
-1.  [Activity 1](#)
-2.  [Activity 2](#)
-3.  [Activity 3](#)
-4.  [Activity 4](#)
-
-## Learning objectives
+            <div class="form-group">
+              <label class="control-label" for="kitObjectives">Learning Objectives</label>
+              <textarea class="form-control" id="kitObjectives" name="kitObjectives" rows="5" required>
 What specific skills will participants learn? What new knowledge will they come away with? You might want to list these individually, like this:
 
 -   Skill 1
@@ -104,80 +101,106 @@ What specific skills will participants learn? What new knowledge will they come 
 -   Skill 3
 
 Not sure? Have a look at our new [Web Literacy Standard](https://wiki.mozilla.org/Learning/WebLiteracyStandard).
+              </textarea>
+            </div>
 
-## What you'll make together
+            <div class="form-group">
+              <label class="control-label" for="kitAgenda">Agenda</label>
+              <textarea class="form-control" id="kitAgenda" name="kitAgenda" rows="5" required>
+1.  [Activity 1](#)
+2.  [Activity 2](#)
+3.  [Activity 3](#)
+4.  [Activity 4](#)
+              </textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="kitOutcomes">What you'll make together</label>
+              <textarea class="form-control" id="kitOutcomes" name="kitOutcomes" rows="5" required>
 What will participants make? What's the end result or finished product? A web page? Video? Paper prototype? Dancing robots? :)
+              </textarea>
+            </div>
 
-## Preparation
+            <div class="form-group">
+              <label class="control-label" for="kitPreperation">Preperation</label>
+              <textarea class="form-control" id="kitPreperation" name="kitPreperation" rows="5" required>
 Are any special materials required? What tools will participants need? Should anything be set up in advance? Is there any software to install, or specific technical requirements?
+              </textarea>
+            </div>
 
-## Assessment and review
+            <div class="form-group">
+              <label class="control-label" for="kitAssessment">Assessment and review</label>
+              <textarea class="form-control" id="kitAssessment" name="kitAssessment" rows="5" required>
 How can participants assess and reflect on their work once it's complete? Feel free to add here if you have suggestions for...
 
 -   **Discussion questions**. Any suggested topics or questions for follow-up discussion?
 -   **Assessment**. Is there a specific standard or rubric you'd suggest using? Are there ways learners can assess each others' work? (Peer assessment?)
 -   **Sharing**. What are some good ways participants can publish and share what they made?
+              </textarea>
+            </div>
 
-## Assessment criteria
+            <div class="form-group">
+              <label class="control-label" for="kitCriteria">Assessment criteria</label>
+              <textarea class="form-control" id="kitCriteria" name="kitCriteria" rows="5" required>
 Got a check-list of criteria, or things to look for in a great completed project? Feel free to list them here:
 
 -   Criteria 1
 -   Criteria 2
 -   Criteria 3
               </textarea>
-              </div>
+            </div>
 
-              <!-- Text input-->
-              <div class="form-group well">
-                <label class="control-label" for="kitTags">Tags</label>
-                <input id="tagger-input" name="tagger-input" type="text" class="form-control input-md">
-                <input type="hidden" id="kitTags" name="kitTags" placeholder="HTML, CSS, DesignAccessibility, Remixing, Navigation">
-                <span class="help-block">Enter tags one by one. Remove tags by clicking the <i class="fa fa-times"></i></span>
-                <div id="tagger-widget"></div>
-              </div>
+            <!-- Text input-->
+            <div class="form-group well">
+              <label class="control-label" for="kitTags">Tags</label>
+              <input id="tagger-input" name="tagger-input" type="text" class="form-control input-md">
+              <input type="hidden" id="kitTags" name="kitTags" placeholder="HTML, CSS, DesignAccessibility, Remixing, Navigation">
+              <span class="help-block">Enter tags one by one. Remove tags by clicking the <i class="fa fa-times"></i></span>
+              <div id="tagger-widget"></div>
+            </div>
 
-              <button type="submit" class="btn btn-primary btn-lg pull-right" id="buildButton">Build</button>
-            </fieldset>
-          </form>
+            <button type="submit" class="btn btn-primary btn-lg pull-right" id="buildButton">Build</button>
+          </fieldset>
+        </form>
 
-        </section>
-
-        <section id="preview" class="col-md-6">
-          <iframe src="/preview.html" id="previewFrame"></iframe>
-        </section>
       </section>
-    </main>
 
-    <footer class="wm-footer" style="margin-top:20px;">
-      <div class="container">
-        <div class="row">
-          <div class="footer-license col-lg-4">
-            <p>Footer here</p>
-          </div>
+      <section id="preview" class="col-md-6">
+        <iframe src="/preview.html" id="previewFrame"></iframe>
+      </section>
+    </section>
+  </main>
+
+  <footer class="wm-footer" style="margin-top:20px;">
+    <div class="container">
+      <div class="row">
+        <div class="footer-license col-lg-4">
+          <p>Footer here</p>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <!-- end kit builder -->
-    <script src="/vendor/jquery/dist/jquery.min.js"></script>
-    <script src="/vendor/jqueryui/ui/minified/jquery-ui.min.js"></script>
-    <script src="/js/eqColumns.jquery.js"></script>
-    <script src="/vendor/showdown/src/showdown.js"></script>
-    <script src="/vendor/web-literacy-client/dist/web-literacy-client.with-langs.js"></script>
-    <script src="/vendor/webmaker-tagger/tagger.js"></script>
-    <script src="/vendor/nunjucks/browser/nunjucks-slim.min.js"></script>
-    <script src="/js/nunjucks-templates.js"></script>
-    <script src="/js/kitbuilder.js"></script>
-    <script>
-      $(window).load(function() {
-        var tagger = new WMTagger({
-          input: '#tagger-input', // set input text field [req]
-          output: '#kitTags', // set output text field [req]
-          display: '#tagger-widget', // set wrapper for tag display
-        }, function(tagger){
-          $('#tagger-widget .wmtagger-weblit-tags').show().prepend('<h4>' + tagger.wlc.title() + ' Tags</h4>').after('<h4>Context Tags</h4>');
-        });
+  <!-- end kit builder -->
+  <script src="/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="/vendor/jqueryui/ui/minified/jquery-ui.min.js"></script>
+  <script src="/js/eqColumns.jquery.js"></script>
+  <script src="/vendor/showdown/src/showdown.js"></script>
+  <script src="/vendor/web-literacy-client/dist/web-literacy-client.with-langs.js"></script>
+  <script src="/vendor/webmaker-tagger/tagger.js"></script>
+  <script src="/vendor/nunjucks/browser/nunjucks-slim.min.js"></script>
+  <script src="/js/nunjucks-templates.js"></script>
+  <script src="/js/kitbuilder.js"></script>
+  <script>
+    $(window).load(function() {
+      var tagger = new WMTagger({
+        input: '#tagger-input', // set input text field [req]
+        output: '#kitTags', // set output text field [req]
+        display: '#tagger-widget', // set wrapper for tag display
+      }, function(tagger){
+        $('#tagger-widget .wmtagger-weblit-tags').show().prepend('<h4>' + tagger.wlc.title() + ' Tags</h4>').after('<h4>Context Tags</h4>');
       });
-    </script>
-  </body>
-  </html>
+    });
+  </script>
+</body>
+</html>
