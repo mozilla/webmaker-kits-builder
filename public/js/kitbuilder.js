@@ -180,9 +180,17 @@
       sendOverwrite();
     });
 
-    $( '#kitAgenda' ).keyup( function() {
-      var agenda = $( '#kitAgenda' ).val().trim();
-      agenda = mdParser.makeHtml( agenda );
+    $( '#kitAgenda' ).on( 'change', function() {
+      // get stringified JSON
+      var agenda = JSON.parse( $( '#kitAgenda' ).val().trim() );
+      var agendaMarkdown = '';
+
+      // turn it into markdown ( easy hack to get list output )
+      agenda.order.forEach( function( activity, idx ) {
+        agendaMarkdown +=  idx + '. [' + agenda.makes[ activity ].title + '](' + agenda.makes[ activity ].url + ')\n';
+      });
+
+      agenda = mdParser.makeHtml( agendaMarkdown );
 
       // hacky method to add the agenda class to the generated <ol>
       var tmpDiv = document.createElement( 'div' );
@@ -269,36 +277,50 @@
 
     // inject initial state
     (function() {
+      // summary
       var summary = $( '#kitShortDescription' ).val().trim();
       summary = mdParser.makeHtml( summary );
 
+      // authors
       var authors = $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' );
 
+      // description
       var description = $( '#kitDescription' ).val().trim();
       description = mdParser.makeHtml( description );
 
+      // objectives
       var objectives = $( '#kitObjectives' ).val().trim();
       objectives = mdParser.makeHtml( objectives );
 
-      var agenda = $( '#kitAgenda' ).val().trim();
-      agenda = mdParser.makeHtml( agenda );
-      var tmpDiv = document.createElement( 'div' ); // hacky method to add the agenda class to the generated <ol>
+      // agenda
+      var agenda = JSON.parse( $( '#kitAgenda' ).val().trim() );
+      var agendaMarkdown = '';
+      agenda.order.forEach( function( activity, idx ) {
+        agendaMarkdown +=  idx + '. [' + agenda.makes[ activity ].title + '](' + agenda.makes[ activity ].url + ')\n';
+      });
+      agenda = mdParser.makeHtml( agendaMarkdown );
+      var tmpDiv = document.createElement( 'div' );
       tmpDiv.innerHTML = agenda;
       $( tmpDiv ).children( 'ol' ).eq( 0 ).addClass( 'agenda' );
       agenda = tmpDiv.innerHTML;
 
+      // outcomes
       var outcomes = $( '#kitOutcomes' ).val().trim();
       outcomes = mdParser.makeHtml( outcomes );
 
+      // preperation
       var preperation = $( '#kitPreperation' ).val().trim();
       preperation = mdParser.makeHtml( preperation );
 
+      // assessment
       var assessment = $( '#kitAssessment' ).val().trim();
       assessment = mdParser.makeHtml( assessment );
 
+      // criteria
       var criteria = $( '#kitCriteria' ).val().trim();
       criteria = mdParser.makeHtml( criteria );
 
+      // tags
       var tagList = $( '#kitTags' ).val() || $( '#kitTags' ).attr( 'placeholder' );
       tagList = splitCommaSeparatedList( tagList );
 
