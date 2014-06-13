@@ -341,6 +341,9 @@
       resources = mdParser.makeHtml( resources );
 
       // tags
+      var resources = $( '#kitResources' ).val().trim();
+      resources = mdParser.makeHtml( resources );
+
       var tagList = $( '#kitTags' ).val() || $( '#kitTags' ).attr( 'placeholder' );
       tagList = splitCommaSeparatedList( tagList );
 
