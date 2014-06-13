@@ -267,6 +267,17 @@
       sendOverwrite();
     });
 
+    $( '#kitResources' ).keyup( function() {
+      var resources = $( '#kitResources' ).val().trim();
+      resources = mdParser.makeHtml( resources );
+
+      $.extend( components, {
+        resources: resources
+      });
+
+      sendOverwrite();
+    });
+
     // inject initial state
     (function() {
       var summary = $( '#kitShortDescription' ).val().trim();
@@ -298,6 +309,9 @@
 
       var criteria = $( '#kitCriteria' ).val().trim();
       criteria = mdParser.makeHtml( criteria );
+
+      var resources = $( '#kitResources' ).val().trim();
+      resources = mdParser.makeHtml( resources );
 
       var tagList = $( '#kitTags' ).val() || $( '#kitTags' ).attr( 'placeholder' );
       tagList = splitCommaSeparatedList( tagList );
