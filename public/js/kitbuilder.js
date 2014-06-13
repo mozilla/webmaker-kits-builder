@@ -275,6 +275,17 @@
       sendOverwrite();
     });
 
+    $( '#kitResources' ).keyup( function() {
+      var resources = $( '#kitResources' ).val().trim();
+      resources = mdParser.makeHtml( resources );
+
+      $.extend( components, {
+        resources: resources
+      });
+
+      sendOverwrite();
+    });
+
     // inject initial state
     (function() {
       // summary
@@ -321,6 +332,9 @@
       criteria = mdParser.makeHtml( criteria );
 
       // tags
+      var resources = $( '#kitResources' ).val().trim();
+      resources = mdParser.makeHtml( resources );
+
       var tagList = $( '#kitTags' ).val() || $( '#kitTags' ).attr( 'placeholder' );
       tagList = splitCommaSeparatedList( tagList );
 
