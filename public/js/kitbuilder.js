@@ -304,8 +304,12 @@
       objectives = mdParser.makeHtml( objectives );
 
       // agenda
+<<<<<<< HEAD
       var agenda = $( '#kitAgenda' ).val().trim() ? $( '#kitAgenda' ).val().trim() : '{ "order": [] }';
       agenda = JSON.parse( agenda );
+=======
+      var agenda = JSON.parse( $( '#kitAgenda' ).val().trim() );
+>>>>>>> integrate activity search
       var agendaMarkdown = '';
       agenda.order.forEach( function( activity, idx ) {
         agendaMarkdown +=  idx + '. [' + agenda.makes[ activity ].title + '](' + agenda.makes[ activity ].url + ')\n';
@@ -332,10 +336,11 @@
       var criteria = $( '#kitCriteria' ).val().trim();
       criteria = mdParser.makeHtml( criteria );
 
-      // tags
+      // resources
       var resources = $( '#kitResources' ).val().trim();
       resources = mdParser.makeHtml( resources );
 
+      // tags
       var tagList = $( '#kitTags' ).val() || $( '#kitTags' ).attr( 'placeholder' );
       tagList = splitCommaSeparatedList( tagList );
 
