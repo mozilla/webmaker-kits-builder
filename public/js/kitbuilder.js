@@ -16,6 +16,7 @@
 
   /**
    * Removes the `<p>` tags from the a string.
+   *
    * @param  {String} str Input string.
    * @return {String}     Output string.
    */
@@ -25,6 +26,7 @@
 
   /**
    * Splits a comma sperated list into an Array
+   *
    * @param  {String} str Input string.
    * @return {Array}      Output array.
    */
@@ -42,6 +44,7 @@
 
   /**
    * Convert authors into links to their makes.org profile links
+   *
    * @param  {String} str Input string containing "@user"s
    * @return {String}     HTML containing links in place of @user
    */
@@ -67,15 +70,53 @@
     return mdParser.makeHtml( removePTags( rtn.trim() ) );
   }
 
+  /**
+   * Returns a function, that, as long as it continues to be invoked, will not be triggered.
+   *
+   * The function will be called after it stops being called for N milliseconds. If `immediate`
+   * is passed, trigger the function on the leading edge, instead of the trailing.
+   *
+   * Function taken from underscore.js
+   * @see {@link http://underscorejs.org/#debounce}
+   *
+   * @param  {Function} fn        The function to debounce
+   * @param  {Integer}  wait      How many milliseconds to wait for
+   * @param  {Boolean}  immediate Trigger function on the leading edge?
+   * @return {Function}           The debounced function
+   */
+  function debounce( fn, wait, immediate ) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+
+      function later() {
+        timeout = null;
+
+        if( !immediate ) {
+          fn.apply( context, args );
+        }
+      }
+
+      var callNow = ( immediate && !timeout );
+
+      clearTimeout( timeout );
+      timeout = setTimeout( later, wait );
+
+      if( callNow ) {
+        fn.apply( context, args );
+      }
+    };
+  }
+
   $( '#previewFrame' ).load( function(){
     var frame = this.contentWindow;
 
     /**
      * Sends an overwrite command to the preview window
      *
-     * @param  {Object} object the components to send
+     * @param  {Object} object The components to send
      */
-    function sendOverwrite( object ) {
+    function _sendOverwrite( object ) {
       object = object || components;
 
       var message = {
@@ -85,6 +126,7 @@
 
       frame.postMessage( JSON.stringify( message ), '*' );
     }
+    var sendOverwrite = debounce( _sendOverwrite, 500 );
 
     // udpate on keypress
     $( '#kitName' ).keyup( function() {
