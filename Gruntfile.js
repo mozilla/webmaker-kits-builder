@@ -38,9 +38,17 @@ module.exports = function( grunt ) {
       }
     },
 
+    nunjucks: {
+      precompile: {
+        baseDir: 'public/',
+        src: 'public/templates/*',
+        dest: 'public/js/nunjucks-templates.js'
+      }
+    },
+
     watch: {
-      files: [ 'public/js/*.js', 'public/less/*.less' ],
-      tasks: [ 'jshint', 'less' ]
+      files: [ 'public/js/*.js', 'public/less/*.less', 'public/templates/*.html' ],
+      tasks: [ 'jshint', 'less', 'nunjucks' ]
     },
 
     connect: {
@@ -58,5 +66,7 @@ module.exports = function( grunt ) {
   grunt.loadNpmTasks( 'grunt-contrib-connect' );
   grunt.loadNpmTasks( 'grunt-contrib-less' );
   grunt.loadNpmTasks( 'grunt-contrib-watch' );
-  grunt.registerTask( 'default', [ 'jshint', 'less', 'connect', 'watch' ] );
+  grunt.loadNpmTasks( 'grunt-nunjucks' );
+
+  grunt.registerTask( 'default', [ 'jshint', 'less', 'nunjucks', 'connect', 'watch' ] );
 };

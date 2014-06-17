@@ -2,9 +2,13 @@
 (function( window, document, $, undef ) {
   'use strict';
 
-  // some repeatedly used elements
+  // setup markdown parser
   var mdParser = new window.Showdown.converter();
-  var sc = new window.SC('#previewFrame');
+
+  // something to store kit components in
+  var components = {
+    tags: []
+  };
 
   /*
     Utility Functions / Filters
@@ -12,6 +16,7 @@
 
   /**
    * Removes the `<p>` tags from the a string.
+   *
    * @param  {String} str Input string.
    * @return {String}     Output string.
    */
@@ -21,6 +26,7 @@
 
   /**
    * Splits a comma sperated list into an Array
+   *
    * @param  {String} str Input string.
    * @return {Array}      Output array.
    */
@@ -38,6 +44,7 @@
 
   /**
    * Convert authors into links to their makes.org profile links
+   *
    * @param  {String} str Input string containing "@user"s
    * @return {String}     HTML containing links in place of @user
    */
@@ -60,74 +67,290 @@
 
     rtn = rtn.substr( 0, rtn.length -2 );
 
-    // return mdParser.makeHtml( rtn.substr( 0, rtn.length -2 ).trim() );
-    return sc.filter( rtn, String.trim, mdParser.makeHtml, removePTags );
+    return mdParser.makeHtml( removePTags( rtn.trim() ) );
+  }
+
+  /**
+   * Returns a function, that, as long as it continues to be invoked, will not be triggered.
+   *
+   * The function will be called after it stops being called for N milliseconds. If `immediate`
+   * is passed, trigger the function on the leading edge, instead of the trailing.
+   *
+   * Function taken from underscore.js
+   * @see {@link http://underscorejs.org/#debounce}
+   *
+   * @param  {Function} fn        The function to debounce
+   * @param  {Integer}  wait      How many milliseconds to wait for
+   * @param  {Boolean}  immediate Trigger function on the leading edge?
+   * @return {Function}           The debounced function
+   */
+  function debounce( fn, wait, immediate ) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+
+      function later() {
+        timeout = null;
+
+        if( !immediate ) {
+          fn.apply( context, args );
+        }
+      }
+
+      var callNow = ( immediate && !timeout );
+
+      clearTimeout( timeout );
+      timeout = setTimeout( later, wait );
+
+      if( callNow ) {
+        fn.apply( context, args );
+      }
+    };
   }
 
   $( '#previewFrame' ).load( function(){
     var frame = this.contentWindow;
-    // inject on keypress
+
+    /**
+     * Sends an overwrite command to the preview window
+     *
+     * @param  {Object} object The components to send
+     */
+    function _sendOverwrite( object ) {
+      object = object || components;
+
+      var message = {
+        type: 'overwrite',
+        components: object
+      };
+
+      frame.postMessage( JSON.stringify( message ), '*' );
+    }
+    var sendOverwrite = debounce( _sendOverwrite, 500 );
+
+    // udpate on keypress
     $( '#kitName' ).keyup( function() {
-      sc.qs( 'header > hgroup > h1', $( '#kitName' ).val() || $( '#kitName' ).attr( 'placeholder' ) );
+      $.extend( components, {
+        title: $( '#kitName' ).val().trim() || $( '#kitName' ).attr( 'placeholder' )
+      });
+
+      sendOverwrite();
     });
 
     $( '#kitAuthor' ).keyup( function() {
-      sc.qs( '#made-by', $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' ), String.trim, makeAuthorHTML, removePTags );
+      var authors = $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' );
+
+      $.extend( components, {
+        authors: makeAuthorHTML( authors.trim() )
+      });
+
+      sendOverwrite();
     });
 
     $( '#kitShortDescription' ).keyup( function() {
-      sc.qs( 'header > hgroup > h2', $( '#kitShortDescription' ).val(), String.trim, mdParser.makeHtml, removePTags );
+      var summary = $( '#kitShortDescription' ).val().trim();
+      summary = mdParser.makeHtml( summary );
+
+      $.extend( components, {
+        summary: removePTags( summary )
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitDescription' ).keyup( function() {
+      var description = $( '#kitDescription' ).val().trim();
+      description = mdParser.makeHtml( description );
+
+      $.extend( components, {
+        description: description
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitObjectives' ).keyup( function() {
+      var objectives = $( '#kitObjectives' ).val().trim();
+      objectives = mdParser.makeHtml( objectives );
+
+      $.extend( components, {
+        objectives: objectives
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitAgenda' ).keyup( function() {
+      var agenda = $( '#kitAgenda' ).val().trim();
+      agenda = mdParser.makeHtml( agenda );
+
+      // hacky method to add the agenda class to the generated <ol>
+      var tmpDiv = document.createElement( 'div' );
+      tmpDiv.innerHTML = agenda;
+      $( tmpDiv ).children( 'ol' ).eq( 0 ).addClass( 'agenda' );
+
+      $.extend( components, {
+        agenda: tmpDiv.innerHTML
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitOutcomes' ).keyup( function() {
+      var outcomes = $( '#kitOutcomes' ).val().trim();
+      outcomes = mdParser.makeHtml( outcomes );
+
+      $.extend( components, {
+        outcomes: outcomes
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitPreperation' ).keyup( function() {
+      var preperation = $( '#kitPreperation' ).val().trim();
+      preperation = mdParser.makeHtml( preperation );
+
+      $.extend( components, {
+        preperation: preperation
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitAssessment' ).keyup( function() {
+      var assessment = $( '#kitAssessment' ).val().trim();
+      assessment = mdParser.makeHtml( assessment );
+
+      $.extend( components, {
+        assessment: assessment
+      });
+
+      sendOverwrite();
+    });
+
+    $( '#kitCriteria' ).keyup( function() {
+      var criteria = $( '#kitCriteria' ).val().trim();
+      criteria = mdParser.makeHtml( criteria );
+
+      $.extend( components, {
+        criteria: criteria
+      });
+
+      sendOverwrite();
     });
 
     $( '#kitThumbnail' ).keyup( function() {
-      frame.document.querySelector( 'header' ).style.backgroundImage = 'url(' + ($( '#kitThumbnail' ).val() || $( '#kitThumbnail' ).attr( 'placeholder' )) + ')';
-    });
+      $.extend( components, {
+        headerImage: $( '#kitThumbnail' ).val().trim() || $( '#kitThumbnail' ).attr( 'placeholder' )
+      });
 
-    $( '#kitContent' ).keyup( function() {
-      sc.qs( 'main', $( '#kitContent' ).val(), mdParser.makeHtml );
+      sendOverwrite();
     });
 
     $( '#kitTags' ).change( function() {
-      var tagList = $( this ).val() || $( this ).attr( 'placeholder' ),
-      tagListAside = '';
-
+      var tagList = $( this ).val() || $( this ).attr( 'placeholder' );
       tagList = splitCommaSeparatedList( tagList );
 
       tagList.filter( function( tag ) {
-        tagListAside += '<li><a href="https://webmaker.org/t/' + tag + '" target="_blank">#' + tag + '</a></li>';
-
-        if ( !frame.document.querySelector( 'meta[name="webmaker:tags"][content="' + tag + '"]' ) ) {
-          var meta = frame.document.createElement( 'meta' );
-          meta.name = 'webmaker:tags';
-          meta.content = tag;
-          frame.document.head.appendChild( meta );
+        if ( components.tags.indexOf( tag ) === -1 ) {
+          components.tags.push( tag );
         }
+      });
+
+      components.tags.forEach( function( tag, idx ) {
+        if( tagList.indexOf( tag ) === -1 ) {
+          components.tags.splice( idx, 1 );
+        }
+      });
+
+      sendOverwrite();
     });
 
-     var tagListMeta = frame.document.querySelectorAll( 'meta[name="webmaker:tags"]' );
-     Array.prototype.forEach.call(tagListMeta, function( element ){
-       if ( tagList.indexOf( element.content ) === -1 && element.content !== 'kit' && element.content !== 'kit-builder' ) {
-        element.parentNode.removeChild( element );
-      }
-    });
-   });
+    $( '#kitResources' ).keyup( function() {
+      var resources = $( '#kitResources' ).val().trim();
+      resources = mdParser.makeHtml( resources );
 
+      $.extend( components, {
+        resources: resources
+      });
+
+      sendOverwrite();
+    });
+
+    // inject initial state
+    (function() {
+      var summary = $( '#kitShortDescription' ).val().trim();
+      summary = mdParser.makeHtml( summary );
+
+      var authors = $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' );
+
+      var description = $( '#kitDescription' ).val().trim();
+      description = mdParser.makeHtml( description );
+
+      var objectives = $( '#kitObjectives' ).val().trim();
+      objectives = mdParser.makeHtml( objectives );
+
+      var agenda = $( '#kitAgenda' ).val().trim();
+      agenda = mdParser.makeHtml( agenda );
+      var tmpDiv = document.createElement( 'div' ); // hacky method to add the agenda class to the generated <ol>
+      tmpDiv.innerHTML = agenda;
+      $( tmpDiv ).children( 'ol' ).eq( 0 ).addClass( 'agenda' );
+      agenda = tmpDiv.innerHTML;
+
+      var outcomes = $( '#kitOutcomes' ).val().trim();
+      outcomes = mdParser.makeHtml( outcomes );
+
+      var preperation = $( '#kitPreperation' ).val().trim();
+      preperation = mdParser.makeHtml( preperation );
+
+      var assessment = $( '#kitAssessment' ).val().trim();
+      assessment = mdParser.makeHtml( assessment );
+
+      var criteria = $( '#kitCriteria' ).val().trim();
+      criteria = mdParser.makeHtml( criteria );
+
+      var resources = $( '#kitResources' ).val().trim();
+      resources = mdParser.makeHtml( resources );
+
+      var tagList = $( '#kitTags' ).val() || $( '#kitTags' ).attr( 'placeholder' );
+      tagList = splitCommaSeparatedList( tagList );
+
+      tagList.filter( function( tag ) {
+        if ( components.tags.indexOf( tag ) === -1 ) {
+          components.tags.push( tag );
+        }
+      });
+
+      $.extend( components, {
+        headerImage: $( '#kitThumbnail' ).val().trim() || $( '#kitThumbnail' ).attr( 'placeholder' ),
+        summary: removePTags( summary ),
+        authors: makeAuthorHTML( authors.trim() ),
+        title: $( '#kitName' ).val().trim() || $( '#kitName' ).attr( 'placeholder' ),
+        description: description,
+        objectives: objectives,
+        agenda: agenda,
+        outcomes: outcomes,
+        preperation: preperation,
+        assessment: assessment,
+        criteria: criteria
+      });
+
+      sendOverwrite();
+    }());
+
+    // build kit!
     $( '#kit-builder-form' ).submit( function( e ) {
-      var kitHTML = '<!doctype html><html>' + frame.document.documentElement.innerHTML + '</html>';
-      kitHTML = kitHTML.replace( '\n', '' );
-      kitHTML = kitHTML.replace( 'src="dist/js/main.js"', 'src="https://stuff.webmaker.org/webmaker-kits/v2/js/main.js"' );
-      kitHTML = kitHTML.replace( 'href="dist/css/style.css"', 'href="https://stuff.webmaker.org/webmaker-kits/v2/css/style.css"' );
+      $.extend( components, {
+        webmakerKitsJS: 'https://stuff.webmaker.org/webmaker-kits/v2/js/main.js',
+        webmakerKitsCSS: 'https://stuff.webmaker.org/webmaker-kits/v2/css/style.css'
+      });
+
+      var kitHTML = window.nunjucks.render( 'templates/kit.html', components );
+
       window.open( 'data:text/plain;' + ( window.btoa ? 'base64,' + btoa( kitHTML ) : kitHTML ) );
       e.preventDefault();
       return false;
     });
-
-    // inject initial state
-    sc.qs( 'main', $( '#kitContent' ).val(), mdParser.makeHtml );
-    sc.qs( 'header > hgroup > h2', $( '#kitShortDescription' ).val(), String.trim, mdParser.makeHtml, removePTags );
-    sc.qs( '#made-by', $( '#kitAuthor' ).val() || $( '#kitAuthor' ).attr( 'placeholder' ), String.trim, makeAuthorHTML, removePTags );
-    sc.qs( 'header > hgroup > h1', $( '#kitName' ).val() || $( '#kitName' ).attr( 'placeholder' ) );
-
-    frame.document.querySelector( 'header' ).style.background = 'url(' + ($( '#kitThumbnail' ).val() || $( '#kitThumbnail' ).attr( 'placeholder' )) + ') center center / cover';
   });
 })( this, document, jQuery );
