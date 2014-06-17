@@ -304,7 +304,8 @@
       objectives = mdParser.makeHtml( objectives );
 
       // agenda
-      var agenda = JSON.parse( $( '#kitAgenda' ).val().trim() );
+      var agenda = $( '#kitAgenda' ).val().trim() ? $( '#kitAgenda' ).val().trim() : '{ "order": [] }';
+      agenda = JSON.parse( agenda );
       var agendaMarkdown = '';
       agenda.order.forEach( function( activity, idx ) {
         agendaMarkdown +=  idx + '. [' + agenda.makes[ activity ].title + '](' + agenda.makes[ activity ].url + ')\n';
