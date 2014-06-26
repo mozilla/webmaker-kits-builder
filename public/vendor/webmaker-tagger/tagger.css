@@ -1,0 +1,70 @@
+.wmtagger-tags .btn {
+  transition: all 0.1s ease-in;
+  position: relative;
+  margin: 4px;
+}
+
+.wmtagger-tags .btn[data-tag="weblit-Navigation"] {
+	background-color: #ff4e1f;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-WebMechanics"] {
+	background-color: #ff6969;;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Search"] {
+	background-color: #fe4040;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Credibility"] {
+	background-color: #ff5984;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Security"] {
+	background-color: #ff004e;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Composing"] {
+	background-color: #01bc85;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Remix"] {
+	background-color: #00ceb8;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-DesignAccessibility"] {
+	background-color: #6ecba9;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-CodingScripting"] {
+	background-color: #00967f;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Infrastructure"] {
+	background-color: #09b773;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Sharing"] {
+	background-color: #739ab1;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-SharingCollaborating"] {
+	background-color: #506b7b;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Collaborating"] {
+	background-color: #506b7b;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Community"] {
+	background-color: #63cfea;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-Privacy"] {
+	background-color: #00bad6;
+	border-color: transparent;
+}
+.wmtagger-tags .btn[data-tag="weblit-OpenPractices"] {
+	background-color: #0097d6;
+	border-color: transparent;
+}

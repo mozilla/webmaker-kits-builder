@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tagger</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+	<link rel="stylesheet" href="https://stuff.webmaker.org/makerstrap/v0.1.7/makerstrap.complete.min.css">
+	<link rel="stylesheet" href="tagger.css">
+</head>
+<body>
+	<div class="container">
+		<h2 class="text-center page-header">Tagger</h2>
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<div class="tags-wrapper">
+					<div class="tag-wrapper-input">
+						<div class="input-group"><input type="text" class="form-control" id="tagger"></div>
+						<div class="input-group">text-output<input type="text" readonly="true" class="form-control" id="tagger-output"></div>
+					</div>
+				</div>
+
+				<div id="tagger-display"></div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<script src="web-literacy-client/dist/web-literacy-client.with-langs.js"></script>
+	<script src="tagger.js"></script>
+	<script>
+		var tagger = new WMTagger({
+			input: '#tagger', // set input text field [req]
+			output: '#tagger-output', // set output text field [req]
+			// display: '#tagger-display', // set wrapper for tag display
+			// mixTags: false, // mix weblit tags w/ context tags? [defaults to false]
+			// lang: 'en-US' // initialize the language to use for weblit tags
+		}, function(tagger){
+			$('.wmtagger-weblit-tags').css({
+				display: 'block'
+			}).prepend('<h4>' + tagger.wlc.title() + ' Tags</h4>').after('<h4>Context Tags</h4>');
+		});
+
+		var tagList = tagger.getTags();
+		var weblitclient = tagger.wlc;
+	</script>
+</body>
+</html>

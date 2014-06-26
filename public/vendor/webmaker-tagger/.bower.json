@@ -1,0 +1,12 @@
+{
+  "name": "webmaker-tagger",
+  "_cacheHeaders": {
+    "ETag": "\"019371092a5c00c81021d469ea0fb1caf65c3b57\"",
+    "Content-Type": "application/x-gzip",
+    "Content-Disposition": "attachment; filename=webmaker-tagger-gh-pages.tar.gz"
+  },
+  "_release": "e-tag:019371092",
+  "_source": "https://github.com/fuzzyfox/webmaker-tagger/archive/gh-pages.tar.gz",
+  "_target": "*",
+  "_originalSource": "https://github.com/fuzzyfox/webmaker-tagger/archive/gh-pages.tar.gz"
+}

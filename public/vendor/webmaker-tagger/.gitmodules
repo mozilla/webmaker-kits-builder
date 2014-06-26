@@ -1,0 +1,3 @@
+[submodule "web-literacy-client"]
+	path = web-literacy-client
+	url = https://github.com/mozilla/web-literacy-client.git
