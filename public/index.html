@@ -104,7 +104,7 @@ Not sure? Have a look at our new [Web Literacy Standard](https://wiki.mozilla.or
               </textarea>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label class="control-label" for="kitAgenda">Agenda</label>
               <textarea class="form-control" id="kitAgenda" name="kitAgenda" rows="5" required>
 1.  [Activity 1](#)
@@ -112,6 +112,28 @@ Not sure? Have a look at our new [Web Literacy Standard](https://wiki.mozilla.or
 3.  [Activity 3](#)
 4.  [Activity 4](#)
               </textarea>
+            </div> -->
+
+            <div class="form-group">
+              <label for="kitAgenda" class="control-label">Agenda</label>
+              <input type="hidden" name="kitAgenda" id="kitAgenda">
+
+              <div class="well">
+                <div class="input-group" id="activitySearch">
+                  <input type="text" class="form-control">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" id="search">
+                      <i class="fa fa-search"></i> search
+                    </button>
+                  </span>
+                </div>
+                <h4>Search Results:</h4>
+                <ul class="media-list" id="activitySearchResults"></ul>
+              </div>
+              <div class="well">
+                <h4>Selected Activities:</h4>
+                <ul class="media-list" id="activitySearchSelected"></ul>
+              </div>
             </div>
 
             <div class="form-group">
@@ -191,12 +213,14 @@ What is your teaching kit all about? What does it help people make or learn? Wha
   <!-- end kit builder -->
   <script src="/vendor/jquery/dist/jquery.min.js"></script>
   <script src="/vendor/jqueryui/ui/minified/jquery-ui.min.js"></script>
-  <script src="/js/eqColumns.jquery.js"></script>
   <script src="/vendor/showdown/src/showdown.js"></script>
   <script src="/vendor/web-literacy-client/dist/web-literacy-client.with-langs.js"></script>
   <script src="/vendor/webmaker-tagger/tagger.js"></script>
   <script src="/vendor/nunjucks/browser/nunjucks-slim.min.js"></script>
   <script src="/js/nunjucks-templates.js"></script>
+  <script src="/vendor/makeapi-client/src/make-api.js"></script>
+  <script src="/vendor/webmaker-oer-search/oer-search.js"></script>
+  <script src="/js/activity-search.js"></script>
   <script src="/js/kitbuilder.js"></script>
   <script>
     $(window).load(function() {

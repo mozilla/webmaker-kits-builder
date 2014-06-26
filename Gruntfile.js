@@ -47,7 +47,7 @@ module.exports = function( grunt ) {
     },
 
     watch: {
-      files: [ 'public/js/*.js', 'public/less/*.less', 'public/templates/*.html' ],
+      files: [ 'public/js/*.js', 'public/less/*.less', 'public/templates/*.html', '!public/js/nunjucks-templates.js' ],
       tasks: [ 'jshint', 'less', 'nunjucks' ]
     },
 
