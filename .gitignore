@@ -34,6 +34,4 @@ build
 
 node_modules
 
-### Project Specific
-public/vendor
-public/js/nunjucks-templates.js
+.env
