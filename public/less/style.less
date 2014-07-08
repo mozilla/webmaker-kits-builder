@@ -7,11 +7,46 @@
 // Animations
 @import (less) '../vendor/animate.css/animate.css';
 
+// VARIABLES
+@import 'variables';
+
 // activity search
 @import 'activity-search';
 
+// apply a natural box layout model to all elements
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 html, body {
-  background-color: @lightgrey;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.625em;
+  font-weight: 300;
+  background-color: @white;
+  color: @gray25;
+  position: relative;
+}
+
+a { color: @light-blue-gray; }
+a:hover, a:focus { color: @dark-blue; }
+
+footer { background-color: #00161d; }
+
+.container {
+  width: 90%; /*width: 1200px;*/
+  max-width: 1200px;
+  margin: auto;
+}
+
+.inside-container {
+  padding: 100px 50px;
+  margin: 0 auto;
+  max-width: 500px;
 }
 
 #preview {
@@ -41,3 +76,152 @@ html, body {
   box-shadow: 0 0 10px rgba(77, 78, 83, 0.6);
   border: none;
 }
+
+.navbar { background-color: @light-blue; }
+
+.centered { text-align: center; }
+
+.themed-background {
+  background: url(/images/kit-illustration.svg) repeat-x center;
+  background-size: 25%;
+  background-color: @dark-blue;
+  color: white;
+}
+
+.themed-title {
+  letter-spacing: 0.075em;
+  border-top: 2px solid @white;
+  border-bottom: 2px solid @white;
+  padding: 10px;
+  font-size: 50px;
+}
+
+.sub-title { font-size: 20px; }
+
+.navbar { margin-bottom: 0; }
+
+
+
+.builder-markup {
+  width: 50%;
+  padding: 3%;
+  color: @dark-green;
+  border-right: 1px solid @light-blue-gray;
+
+  .control-label {
+    color: @green;
+    font-weight: normal;
+  }
+
+  .help-block {
+    color: @darkest-gray;
+    font-size: 12px;
+    line-height: 1.4em;
+  }
+
+  .btn-primary,
+  .btn-search {
+    background-color: @dark-blue;
+    border-color: @dark-blue;
+    color: @white;
+  }
+
+  legend {
+    border-bottom: none;
+    color: @white;
+    font-weight: bold;
+  }
+
+  .media-body p { line-height: 1.2em; }
+
+  .well {
+    background-color: @note-pad-yellow;
+    border: none;
+  }
+
+  .activities {
+    counter-reset: item;
+    padding: 10px 0 0 25px;
+    background-color: @note-pad-yellow;
+    border-bottom: 1px dotted #ccc;
+    position: relative;
+    margin: 0;
+    &::before {
+      position: absolute;
+      border-left: 1px solid #ffaa9f;
+      border-right: 1px solid #ffaa9f;
+      width: 5px;
+      height: 100%;
+      float: left;
+      display: inline-block;
+      margin-top: -10px;
+      margin-left: -15px;
+      z-index: 0;
+      content: '';
+    }
+  }
+}
+
+.header-block {
+  background: @light-blue-gray;
+  padding: 10px 43px;
+  margin: -44px -44px 20px -44px;
+  text-align: center;
+  position: relative;
+  color: @dark-green;
+  font-weight: bold;
+  font-size: 20px;
+  text-transform: uppercase;
+
+  p { margin-bottom: 0; }
+
+  .arrow-down {
+    position: absolute;
+    bottom: -20px;
+    left: 335px;
+  }
+}
+
+.second-header-block { margin-top: 20px; }
+
+.builder-preview { padding-left: 0; }
+
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 40px solid transparent;
+  border-bottom: 40px solid transparent;
+  border-left: 40px solid #13454e;
+  position: absolute;
+  right: -40px;
+}
+
+.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+
+  border-top: 20px solid @light-blue-gray;
+}
+
+/**************** CLEARFIX ****************/
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.clearfix { display: inline-block; }
+
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+
+.clearfix { display: block; }
+
+.cb { clear: both }
+
