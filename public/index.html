@@ -44,6 +44,12 @@
     </div>
   </div>
 
+  <div class="inside-container align-center kit-steps">
+    <i class="fa fa-pencil-square-o"></i>
+    <i class="fa fa-picture-o"></i>
+    <i class="fa fa-code"></i>
+  </div>
+
   <!-- kit builder -->
   <main>
     <section id="kit-builder" class="hidden-xs hidden-sm row">
@@ -89,11 +95,12 @@
             </div>
           </fieldset>
 
+          <div class="header-block second-header-block">
+            <p>Kit Content</p>
+            <div class="arrow-down"></div>
+          </div>
+
           <fieldset>
-            <div class="header-block second-header-block">
-              <p>Kit Content</p>
-              <div class="arrow-down"></div>
-            </div>
             <!-- Textarea -->
             <div class="form-group">
               <label class="control-label" for="kitDescription">Description</label>
@@ -113,16 +120,6 @@ What specific skills will participants learn? What new knowledge will they come 
 Not sure? Have a look at our new [Web Literacy Standard](https://wiki.mozilla.org/Learning/WebLiteracyStandard).
               </textarea>
             </div>
-
-            <!-- <div class="form-group">
-              <label class="control-label" for="kitAgenda">Agenda</label>
-              <textarea class="form-control" id="kitAgenda" name="kitAgenda" rows="5" required>
-1.  [Activity 1](#)
-2.  [Activity 2](#)
-3.  [Activity 3](#)
-4.  [Activity 4](#)
-              </textarea>
-            </div> -->
 
             <div class="form-group">
               <label for="kitAgenda" class="control-label">Agenda</label>
@@ -192,11 +189,13 @@ Got a check-list of criteria, or things to look for in a great completed project
               <span class="help-block">Enter tags one by one. Remove tags by clicking the <i class="fa fa-times"></i></span>
               <div id="tagger-widget"></div>
             </div>
+          </fieldset>
 
-            <div class="header-block second-header-block">
-              <p>Additional Resources</p>
-              <div class="arrow-down"></div>
-            </div>
+          <div class="header-block second-header-block">
+            <p>Additional Resources</p>
+            <div class="arrow-down"></div>
+          </div>
+          <fieldset>
             <div class="form-group">
               <label class="control-label" for="kitResources">Additional Resources</label>
               <textarea class="form-control" id="kitResources" name="kitResources" rows="5" required>

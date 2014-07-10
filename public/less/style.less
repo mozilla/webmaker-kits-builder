@@ -37,6 +37,8 @@ a:hover, a:focus { color: @dark-blue; }
 
 footer { background-color: #00161d; }
 
+.align-center { text-align: center; }
+
 .container {
   width: 90%; /*width: 1200px;*/
   max-width: 1200px;
@@ -44,10 +46,26 @@ footer { background-color: #00161d; }
 }
 
 .inside-container {
-  padding: 100px 50px;
+  padding: 55px 50px;
   margin: 0 auto;
   max-width: 500px;
 }
+
+.kit-steps {
+  max-width: 900px;
+
+  .fa-pencil-square-o,
+  .fa-picture-o,
+  .fa-code {
+    font-size: 40px;
+    background-color: @pink;
+    padding: 40px;
+    border-radius: 100%;
+    color: @white;
+    margin: 0 5%;
+
+  }
+ }
 
 #preview {
   overflow: hidden;
@@ -104,9 +122,11 @@ footer { background-color: #00161d; }
 
 .builder-markup {
   width: 50%;
-  padding: 3%;
+  padding: 3% 0;
   color: @dark-green;
   border-right: 1px solid @light-blue-gray;
+
+  fieldset { padding: 0 3% 0 5%; }
 
   .control-label {
     color: @green;
@@ -165,7 +185,7 @@ footer { background-color: #00161d; }
 .header-block {
   background: @light-blue-gray;
   padding: 10px 43px;
-  margin: -44px -44px 20px -44px;
+  margin: -49px 0 25px 0;
   text-align: center;
   position: relative;
   color: @dark-green;
@@ -178,7 +198,7 @@ footer { background-color: #00161d; }
   .arrow-down {
     position: absolute;
     bottom: -20px;
-    left: 335px;
+    left: 50%;
   }
 }
 
