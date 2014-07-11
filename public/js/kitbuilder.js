@@ -10,6 +10,20 @@
     tags: []
   };
 
+  $('.js-form-tab').on('click', function() {
+    $(this).addClass('selected');
+    $('.js-preview-tab').removeClass('selected');
+    $('.js-builder-preview').hide();
+    $('.js-builder-markup').show();
+  });
+
+  $('.js-preview-tab').on('click', function() {
+    $(this).addClass('selected');
+    $('.js-form-tab').removeClass('selected');
+    $('#preview').show();
+    $('.js-builder-markup').hide();
+  });
+
   /*
     Utility Functions / Filters
    */

@@ -10,19 +10,16 @@
 <body>
 
   <!-- navigation -->
-  <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+  <nav class="navbar navbar-static-top" role="navigation">
 
     <div class="container">
 
       <div class="navbar-header">
-
         <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
           <span class="sr-only">Toggle navigation</span>
           <span class="fa fa-bars fa-fw"></span>
         </button>
-
         <a class="navbar-brand" href="./">Kit Builder</a>
-
       </div>
 
       <div style="height: 0px;" class="collapse navbar-collapse" collapse="isCollapsed">
@@ -34,23 +31,97 @@
   </nav>
   <!-- end navigation -->
 
-  <div class="container visible-xs visible-sm">
-    <div class="alert alert-danger">
-      <strong>Oh snap!</strong> Kit Builder doesn't work on small screens yet.
+  <div class="themed-background centered">
+    <div class="inside-container">
+      <h1 class="themed-title">Kit<strong>Builder</strong></h1>
+      <p class="sub-title">Boilerplate Teaching Kit Builder</p>
     </div>
   </div>
 
+  <section class="container align-center">
+    <h2>Your starting point for building your WebMaker Teaching Kit</h2>
+  </section>
+
+  <section class="inside-container align-center kit-steps clearfix">
+    <div class="list-guide left">
+      <i class="fa fa-pencil-square-o"></i>
+      <h3>Fill Out Kit Form</h3>
+    </div>
+    <div class="list-guide left">
+      <i class="fa fa-picture-o"></i>
+      <h3>Preview Kit</h3>
+    </div>
+    <div class="list-guide left">
+      <i class="fa fa-code"></i>
+      <h3>Generate Kit Code</h3>
+    </div>
+  </section>
+
+  <div class="divider">
+    <span class="themed divider-icon"></span>
+  </div>
+
+  <article class="tips-and-tricks">
+    <h2 class="align-center">Tips & Tricks</h2>
+
+    <section class="topic topic-blue-gray">
+      <section class="check-mark">
+        <span></span>
+      </section>
+      <section class="topic-description">
+        <h3>Tips for creating great teaching kits</h3>
+        <div exclude="phone">
+          <p>Top tips for creating great teaching kits on webmaker.org/teach</p>
+        </div>
+      </section>
+       <a href="https://support.mozilla.org/en-US/kb/top-tips-creating-great-teaching-kits" target="_blank" class="link-target"></a>
+    </section>
+    <section class="topic topic-blue-gray">
+      <section class="check-mark">
+        <span></span>
+      </section>
+      <section class="topic-description">
+        <h3>Pro Tips for great teaching kits</h3>
+        <div exclude="phone">
+          <p>Pro tips on the Webmaker teaching kits</p>
+        </div>
+      </section>
+       <a href="https://support.mozilla.org/en-US/kb/pro-tips-webmaker-teaching-kits" target="_blank" class="link-target"></a>
+    </section>
+    <section class="topic topic-blue-gray">
+      <section class="check-mark">
+        <span></span>
+      </section>
+      <section class="topic-description">
+        <h3>Event Guides</h3>
+        <div exclude="phone">
+          <p>Guides to help you plan small, medium and large events</p>
+        </div>
+      </section>
+       <a href="https://events.webmaker.org/#!/event-guides" target="_blank" class="link-target"></a>
+    </section>
+  </article>
+
   <!-- kit builder -->
-  <main class="container">
-    <section id="kit-builder" class="hidden-xs hidden-sm row">
-      <section id="markup" class="col-md-6">
+  <main>
+    <ul class="tabs cb">
+      <li class="tab selected js-form-tab"><a>Kit Form</a></li>
+      <li class="tab js-preview-tab"><a>Kit Preview</a></li>
+    </ul>
+
+    <section id="kit-builder" class="row">
+      <section id="markup" class="col-md-6 builder-markup js-builder-markup">
         <form class="form" id="kit-builder-form">
+          <div class="header-block">
+            <p>Kit Header</p>
+            <div class="arrow-down"></div>
+          </div>
+
           <fieldset>
-            <legend>Header</legend>
             <div class="row">
               <div class="col-lg-6">
                 <!-- Text input-->
-                <div class="form-group" style="padding-right: 5px">
+                <div class="form-group">
                   <label class="control-label" for="kitName">Kit Name</label>
                   <input id="kitName" name="kitName" placeholder="Your title goes here" class="form-control input-md" required type="text">
                   <span class="help-block">What is the name/title of your kit? <em>(e.g. Jumping into HTML with Thimble)</em></span>
@@ -70,24 +141,27 @@
             <!-- Textarea -->
             <div class="form-group">
               <label class="control-label" for="kitShortDescription">Short Description</label>
-              <textarea class="form-control" id="kitShortDescription" name="kitShortDescription" rows="4" required>Give it a one-line summary here. What will participants make or learn?</textarea>
+              <textarea placeholder="Give it a one-line summary here. What will participants make or learn?" class="form-control" id="kitShortDescription" name="kitShortDescription" rows="4" required ></textarea>
             </div>
 
             <!-- Text input-->
             <div class="form-group">
               <label class="control-label" for="kitThumbnail">Header Image</label>
               <input id="kitThumbnail" name="kitThumbnail" placeholder="https://s3-us-west-2.amazonaws.com/webmaker-kits/learning%402x.jpg" class="form-control input-md" type="text">
-              <span class="help-block">The URL to the image you want to appear in the kit header</span>
+              <span class="help-block">URL to the image you want to appear in the kit header</span>
             </div>
-
           </fieldset>
+
+          <div class="header-block second-header-block">
+            <p>Kit Content</p>
+            <div class="arrow-down"></div>
+          </div>
+
           <fieldset>
-            <legend>Content</legend>
             <!-- Textarea -->
             <div class="form-group">
               <label class="control-label" for="kitDescription">Description</label>
-              <textarea class="form-control" id="kitDescription" name="kitDescription" rows="5" required>
-What is your teaching kit all about? What does it help people make or learn? What was your inspiration for creating it?
+              <textarea class="form-control" id="kitDescription" name="kitDescription" rows="5" required>What is your teaching kit all about? What does it help people make or learn? What was your inspiration for creating it?
               </textarea>
             </div>
 
@@ -104,16 +178,6 @@ Not sure? Have a look at our new [Web Literacy Standard](https://wiki.mozilla.or
               </textarea>
             </div>
 
-            <!-- <div class="form-group">
-              <label class="control-label" for="kitAgenda">Agenda</label>
-              <textarea class="form-control" id="kitAgenda" name="kitAgenda" rows="5" required>
-1.  [Activity 1](#)
-2.  [Activity 2](#)
-3.  [Activity 3](#)
-4.  [Activity 4](#)
-              </textarea>
-            </div> -->
-
             <div class="form-group">
               <label for="kitAgenda" class="control-label">Agenda</label>
               <input type="hidden" name="kitAgenda" id="kitAgenda">
@@ -122,16 +186,18 @@ Not sure? Have a look at our new [Web Literacy Standard](https://wiki.mozilla.or
                 <div class="input-group" id="activitySearch">
                   <input type="text" class="form-control">
                   <span class="input-group-btn">
-                    <button class="btn btn-default" id="search">
+                    <button class="btn btn-default btn-search" id="search">
                       <i class="fa fa-search"></i> search
                     </button>
                   </span>
                 </div>
-                <h4>Search Results:</h4>
+                <span class="help-block">Add activities by searching for keywords.</span>
+                <h4>Search Results</h4>
                 <ul class="media-list" id="activitySearchResults"></ul>
               </div>
               <div class="well">
-                <h4>Selected Activities:</h4>
+                <h4>Selected Activities</h4>
+                <span class="help-block">Remove activities by clicking the <i class="fa fa-times"></i></span>
                 <ul class="media-list" id="activitySearchSelected"></ul>
               </div>
             </div>
@@ -180,7 +246,13 @@ Got a check-list of criteria, or things to look for in a great completed project
               <span class="help-block">Enter tags one by one. Remove tags by clicking the <i class="fa fa-times"></i></span>
               <div id="tagger-widget"></div>
             </div>
+          </fieldset>
 
+          <div class="header-block second-header-block">
+            <p>Additional Resources</p>
+            <div class="arrow-down"></div>
+          </div>
+          <fieldset>
             <div class="form-group">
               <label class="control-label" for="kitResources">Additional Resources</label>
               <textarea class="form-control" id="kitResources" name="kitResources" rows="5" required>
@@ -188,19 +260,18 @@ What is your teaching kit all about? What does it help people make or learn? Wha
               </textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg pull-right" id="buildButton">Build</button>
+            <button type="submit" class="btn btn-primary btn-lg pull-right" id="buildButton">Build Your Kit</button>
           </fieldset>
         </form>
-
       </section>
 
-      <section id="preview" class="col-md-6">
+      <section id="preview" class="col-md-6 builder-preview js-builder-preview">
         <iframe src="/preview.html" id="previewFrame"></iframe>
       </section>
     </section>
   </main>
 
-  <footer class="wm-footer" style="margin-top:20px;">
+  <footer>
     <div class="container">
       <div class="row">
         <div class="footer-license col-lg-4">
