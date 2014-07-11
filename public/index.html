@@ -31,12 +31,6 @@
   </nav>
   <!-- end navigation -->
 
-  <div class="container visible-xs visible-sm">
-    <div class="alert alert-danger">
-      <strong>Oh snap!</strong> Kit Builder doesn't work on small screens yet.
-    </div>
-  </div>
-
   <div class="themed-background centered">
     <div class="inside-container">
       <h1 class="themed-title">Kit<strong>Builder</strong></h1>
@@ -44,16 +38,79 @@
     </div>
   </div>
 
-  <div class="inside-container align-center kit-steps">
-    <i class="fa fa-pencil-square-o"></i>
-    <i class="fa fa-picture-o"></i>
-    <i class="fa fa-code"></i>
+  <section class="container align-center">
+    <h2>Your starting point for building your WebMaker Teaching Kit</h2>
+  </section>
+
+  <section class="inside-container align-center kit-steps clearfix">
+    <div class="list-guide left">
+      <i class="fa fa-pencil-square-o"></i>
+      <h3>Fill Out Kit Form</h3>
+    </div>
+    <div class="list-guide left">
+      <i class="fa fa-picture-o"></i>
+      <h3>Preview Kit</h3>
+    </div>
+    <div class="list-guide left">
+      <i class="fa fa-code"></i>
+      <h3>Generate Kit Code</h3>
+    </div>
+  </section>
+
+  <div class="divider">
+    <span class="themed divider-icon"></span>
   </div>
+
+  <article class="tips-and-tricks">
+    <h2 class="align-center">Tips & Tricks</h2>
+
+    <section class="topic topic-blue-gray">
+      <section class="check-mark">
+        <span></span>
+      </section>
+      <section class="topic-description">
+        <h3>Tips for creating great teaching kits</h3>
+        <div exclude="phone">
+          <p>Top tips for creating great teaching kits on webmaker.org/teach</p>
+        </div>
+      </section>
+       <a href="https://support.mozilla.org/en-US/kb/top-tips-creating-great-teaching-kits" target="_blank" class="link-target"></a>
+    </section>
+    <section class="topic topic-blue-gray">
+      <section class="check-mark">
+        <span></span>
+      </section>
+      <section class="topic-description">
+        <h3>Pro Tips for great teaching kits</h3>
+        <div exclude="phone">
+          <p>Pro tips on the Webmaker teaching kits</p>
+        </div>
+      </section>
+       <a href="https://support.mozilla.org/en-US/kb/pro-tips-webmaker-teaching-kits" target="_blank" class="link-target"></a>
+    </section>
+    <section class="topic topic-blue-gray">
+      <section class="check-mark">
+        <span></span>
+      </section>
+      <section class="topic-description">
+        <h3>Event Guides</h3>
+        <div exclude="phone">
+          <p>Guides to help you plan small, medium and large events</p>
+        </div>
+      </section>
+       <a href="https://events.webmaker.org/#!/event-guides" target="_blank" class="link-target"></a>
+    </section>
+  </article>
 
   <!-- kit builder -->
   <main>
-    <section id="kit-builder" class="hidden-xs hidden-sm row">
-      <section id="markup" class="col-md-6 builder-markup">
+    <ul class="tabs cb">
+      <li class="tab selected js-form-tab"><a>Kit Form</a></li>
+      <li class="tab js-preview-tab"><a>Kit Preview</a></li>
+    </ul>
+
+    <section id="kit-builder" class="row">
+      <section id="markup" class="col-md-6 builder-markup js-builder-markup">
         <form class="form" id="kit-builder-form">
           <div class="header-block">
             <p>Kit Header</p>
@@ -208,7 +265,7 @@ What is your teaching kit all about? What does it help people make or learn? Wha
         </form>
       </section>
 
-      <section id="preview" class="col-md-6 builder-preview">
+      <section id="preview" class="col-md-6 builder-preview js-builder-preview">
         <iframe src="/preview.html" id="previewFrame"></iframe>
       </section>
     </section>
