@@ -69,4 +69,5 @@ module.exports = function( grunt ) {
   grunt.loadNpmTasks( 'grunt-nunjucks' );
 
   grunt.registerTask( 'default', [ 'jshint', 'less', 'nunjucks', 'connect', 'watch' ] );
+  grunt.registerTask( 'compile', [ 'jshint', 'less', 'nunjucks' ] );
 };
