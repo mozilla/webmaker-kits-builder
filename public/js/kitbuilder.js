@@ -142,12 +142,100 @@
     }
     var sendOverwrite = debounce( _sendOverwrite, 500 );
 
+    var componenetsMap = {
+      "title": "#kitName",
+      "authors": "#kitAuthors" ,
+      "summary": "#kitShortDescription",
+      "description": '#kitDescription',
+      "objectives": '#kitObjectives',
+      "outcomes": '#kitOutcomes',
+      "preperation": '#kitPreperation',
+      "assessment": '#kitAssessment',
+      "criteria": '#kitCriteria',
+      "headerImage": '#kitThumbnail',
+      "resources": '#kitResources',
+      "tags": "#kitTags",
+      "agenda": '#kitAgenda'
+    };
+
+    function loadData() {
+      var items = location.search.substr(1).split("&");
+
+      items.forEach(function(item) {
+        var object = {};
+        var $output;
+        var parts = item.split("=");
+        var key = parts[0];
+        var value = decodeURIComponent( parts[1] || "" );
+        if (key === "tags") {
+          if (value) {
+            $output = $( '#kitTags' );
+            $output.val( value );
+          }
+        } else if (key === "agenda") {
+          if( value ) {
+            $output = $( '#kitAgenda' );
+
+            $output.val( value );
+            window.dispatchEvent(new CustomEvent("kitagendaready"));
+            var selectedActivities = JSON.parse( value );
+            var $selected = $( '#activitySearchSelected' );
+
+            selectedActivities.order.forEach( function( activity ) {
+              var make = selectedActivities.makes[ activity ];
+              var id = make.id || make.url;
+
+              $selected.append('<li class="media activities" data-make-id="' + id + '" data-uid="' + activity + '">' +
+                                        '<a href="#result-1" class="pull-left thumbnail"><img src="' + make.thumbnail + '" alt="#"></a>' +
+                                        '<div class="media-body">' +
+                                          '<h4 class="media-heading">' + make.title + ' <small>by ' + make.username + '</small></h4>' +
+                                          '<p>' + make.description + '</p>' +
+                                        '</div>' +
+                                      '</li>');
+            });
+          }
+        } else {
+          object[key] = value;
+          $.extend(components, object);
+          $( componenetsMap[ key ] ).val( value );
+        }
+      });
+    }
+    function _writeData( object ) {
+      object = object || components;
+
+      var queryString = "";
+      Object.keys(object).forEach(function(name) {
+        if ( !name || !name.trim() ) {
+          return;
+        }
+        var value = encodeURIComponent(object[name]);
+
+        // Special case for agenda because of complex UI
+        if (name === "agenda") {
+          var $output = $( '#kitAgenda' );
+          value = $output.val() || "";
+          value = encodeURIComponent( value );
+        }
+
+        queryString += name + "=" + value + "&";
+      });
+
+      if (queryString) {
+        // Add ? and remove trailing &
+        queryString = "?" + queryString.slice(0, -1);
+        history.pushState({}, "", location.origin + location.pathname + queryString);
+      }
+    }
+    var writeData = debounce( _writeData, 500 );
+
     // udpate on keypress
     $( '#kitName' ).keyup( function() {
       $.extend( components, {
         title: $( '#kitName' ).val().trim() || $( '#kitName' ).attr( 'placeholder' )
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -158,6 +246,7 @@
         authors: makeAuthorHTML( authors.trim() )
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -169,6 +258,7 @@
         summary: removePTags( summary )
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -180,6 +270,7 @@
         description: description
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -191,6 +282,7 @@
         objectives: objectives
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -215,6 +307,7 @@
         agenda: tmpDiv.innerHTML
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -226,6 +319,7 @@
         outcomes: outcomes
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -237,6 +331,7 @@
         preperation: preperation
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -248,6 +343,7 @@
         assessment: assessment
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -259,6 +355,7 @@
         criteria: criteria
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -267,6 +364,7 @@
         headerImage: $( '#kitThumbnail' ).val().trim() || $( '#kitThumbnail' ).attr( 'placeholder' )
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -286,6 +384,7 @@
         }
       });
 
+      writeData();
       sendOverwrite();
     });
 
@@ -297,11 +396,15 @@
         resources: resources
       });
 
+      writeData();
       sendOverwrite();
     });
 
     // inject initial state
     (function() {
+
+      loadData();
+
       // summary
       var summary = $( '#kitShortDescription' ).val().trim();
       summary = mdParser.makeHtml( summary );
@@ -375,6 +478,7 @@
         criteria: criteria
       });
 
+      writeData();
       sendOverwrite();
     }());
 
