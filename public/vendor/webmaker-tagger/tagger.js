@@ -146,6 +146,15 @@
 			self._output.val( self._tagList.join( ', ' ) ).trigger( 'change' );
 		});
 
+		var initialTags = self._output.val() || self._output.attr( 'placeholder' );
+		if ( initialTags ) {
+			initialTags.split( ',' ).forEach( function( tag ) {
+				self.addTag({
+					value: tag.trim()
+				});
+			});
+		}
+
 		// if set, run callback so third parties can further modify the ui
 		if( typeof callback === 'function' ) {
 			callback( self );
@@ -160,19 +169,18 @@
 			// replace the event w/ the value of the input field as tag
 			if( tag.eventPhase ) {
 				tag = {
-					label: this.wlc.term( this._input.val() ) || this._input.val(),
 					value: this._input.val()
 				};
 			}
 
 			// check that there is actually a tag to add
-			if( tag.value === '' ) {
+			if( !tag.value ) {
 				return;
 			}
 
 			// ensure that there is both a label and value
-			if( tag.label === '' ) {
-				tag.label = tag.value;
+			if( !tag.label ) {
+				tag.label = this.wlc.term( tag.value ) || tag.value;
 			}
 
 			// add tag to tag list, and output field
