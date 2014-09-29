@@ -257,22 +257,9 @@
   });
 
   // deal w/ page reload + form input persistance (i.e. initial state)
-  (function() {
+  window.addEventListener("kitagendaready", function() {
     if( $output.val() ) {
       selectedActivities = JSON.parse( $output.val() );
-
-      selectedActivities.order.forEach( function( activity ) {
-        var make = selectedActivities.makes[ activity ];
-        var id = make.id || make.url;
-
-        $selected.append('<li class="media activities" data-make-id="' + id + '" data-uid="' + activity + '">' +
-                                  '<a href="#result-1" class="pull-left thumbnail"><img src="' + make.thumbnail + '" alt="#"></a>' +
-                                  '<div class="media-body">' +
-                                    '<h4 class="media-heading">' + make.title + ' <small>by ' + make.username + '</small></h4>' +
-                                    '<p>' + make.description + '</p>' +
-                                  '</div>' +
-                                '</li>');
-      });
     }
-  }());
+  });
 })( this, document, jQuery, wmOERSearch );
