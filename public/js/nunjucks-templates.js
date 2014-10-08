@@ -80,9 +80,9 @@ output += "\n        <p>\n          What will participants make? What's the end 
 ;
 }
 output += "\n\n      <h2>Preparation</h2>\n      ";
-if(runtime.contextOrFrameLookup(context, frame, "preperation")) {
+if(runtime.contextOrFrameLookup(context, frame, "preparation")) {
 output += "\n        ";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "preperation"), env.autoesc);
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "preparation"), env.autoesc);
 output += "\n      ";
 ;
 }
