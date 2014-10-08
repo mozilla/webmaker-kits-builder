@@ -149,7 +149,7 @@
       "description": '#kitDescription',
       "objectives": '#kitObjectives',
       "outcomes": '#kitOutcomes',
-      "preperation": '#kitPreperation',
+      "preparation": '#kitPreparation',
       "assessment": '#kitAssessment',
       "criteria": '#kitCriteria',
       "headerImage": '#kitThumbnail',
@@ -323,12 +323,12 @@
       sendOverwrite();
     });
 
-    $( '#kitPreperation' ).keyup( function() {
-      var preperation = $( '#kitPreperation' ).val().trim();
-      preperation = mdParser.makeHtml( preperation );
+    $( '#kitPreparation' ).keyup( function() {
+      var preparation = $( '#kitPreparation' ).val().trim();
+      preparation = mdParser.makeHtml( preparation );
 
       $.extend( components, {
-        preperation: preperation
+        preparation: preparation
       });
 
       writeData();
@@ -438,9 +438,9 @@
       var outcomes = $( '#kitOutcomes' ).val().trim();
       outcomes = mdParser.makeHtml( outcomes );
 
-      // preperation
-      var preperation = $( '#kitPreperation' ).val().trim();
-      preperation = mdParser.makeHtml( preperation );
+      // preparation
+      var preparation = $( '#kitPreparation' ).val().trim();
+      preparation = mdParser.makeHtml( preparation );
 
       // assessment
       var assessment = $( '#kitAssessment' ).val().trim();
@@ -473,7 +473,7 @@
         objectives: objectives,
         agenda: agenda,
         outcomes: outcomes,
-        preperation: preperation,
+        preparation: preparation,
         assessment: assessment,
         criteria: criteria
       });
