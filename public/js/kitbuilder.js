@@ -496,4 +496,7 @@
       return false;
     });
   });
+
+  $( '#previewFrame' ).attr( 'src', '/preview.html' );
+
 })( this, document, jQuery );
